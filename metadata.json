@@ -1,0 +1,6 @@
+{
+  "name": "28labs — AI & Software Engineering Agency",
+  "description": "High-converting, modern marketing website for 28labs featuring custom software development, AI engineering services, interactive project estimator, and consultation booking.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
