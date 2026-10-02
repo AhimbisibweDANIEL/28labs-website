@@ -1,14 +1,16 @@
 export interface ServiceItem {
   id: string;
   title: string;
+  headline: string;
   category: 'web-mobile' | 'websites' | 'ai-engineering' | 'rearchitecture';
   shortDesc: string;
   fullDesc: string;
   iconName: string;
   deliverables: string[];
-  techStack: string[];
-  typicalTimeline: string;
-  highlights: string[];
+  techStack?: string[];
+  typicalTimeline?: string;
+  highlights?: string[];
+  ctaLabel?: string;
 }
 
 export interface CaseStudy {
@@ -28,25 +30,47 @@ export interface CaseStudy {
   techUsed: string[];
   featured: boolean;
   imageAccent: string;
+  whoItHelps?: string;
+  problemSolved?: string;
 }
 
-export interface Testimonial {
+export interface ProcessStep {
+  stepNumber: string;
+  title: string;
+  subtitle: string;
+  description: string;
+  icon?: string;
+}
+
+export interface WhatWeBuildCategory {
   id: string;
-  quote: string;
-  clientName: string;
-  role: string;
-  company: string;
-  avatarUrl?: string;
-  projectType: string;
-  rating: number;
+  title: string;
+  tagline: string;
+  items: string[];
 }
 
-export interface EstimatorState {
-  projectType: 'web' | 'mobile' | 'ai' | 'fullstack';
-  scopeLevel: 'mvp' | 'growth' | 'enterprise';
-  features: string[];
-  timelinePreference: 'standard' | 'express';
-  teamSize: 'lean' | 'dedicated';
+export interface WorkflowExample {
+  id: string;
+  title: string;
+  subtitle: string;
+  steps: {
+    step: string;
+    label: string;
+    icon: string;
+  }[];
+}
+
+export interface FAQItem {
+  id: string;
+  question: string;
+  answer: string;
+  category?: string;
+}
+
+export interface ProjectStarterData {
+  projectType: string;
+  ideaDescription: string;
+  timeline: string;
 }
 
 export interface ConsultationFormData {
@@ -54,24 +78,7 @@ export interface ConsultationFormData {
   email: string;
   company: string;
   projectType: string;
-  budgetRange: string;
-  timeline: string;
+  budgetRange?: string;
+  timeline?: string;
   message: string;
-}
-
-export interface ProcessStep {
-  stepNumber: string;
-  title: string;
-  duration: string;
-  subtitle: string;
-  description: string;
-  deliverables: string[];
-  icon: string;
-}
-
-export interface FAQItem {
-  id: string;
-  question: string;
-  answer: string;
-  category: 'pricing' | 'process' | 'tech' | 'ip';
 }

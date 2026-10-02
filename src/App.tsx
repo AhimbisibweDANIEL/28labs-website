@@ -2,12 +2,12 @@ import React, { useState } from 'react';
 import { Navbar } from './components/Navbar';
 import { Hero } from './components/Hero';
 import { Services } from './components/Services';
-import { ProjectEstimator } from './components/ProjectEstimator';
-import { AIEngineeringPlayground } from './components/AIEngineeringPlayground';
-import { CaseStudies } from './components/CaseStudies';
+import { WhatWeBuild } from './components/WhatWeBuild';
 import { Process } from './components/Process';
+import { CaseStudies } from './components/CaseStudies';
 import { ValueProps } from './components/ValueProps';
-import { Testimonials } from './components/Testimonials';
+import { AIEngineeringPlayground } from './components/AIEngineeringPlayground';
+import { ProjectEstimator } from './components/ProjectEstimator';
 import { FAQ } from './components/FAQ';
 import { ContactSection } from './components/ContactSection';
 import { ConsultationModal } from './components/ConsultationModal';
@@ -25,7 +25,7 @@ export default function App() {
   };
 
   const handleOpenConsultationWithScope = (scopeSummary: string) => {
-    setModalServiceTitle('Project Scope Estimator Proposal');
+    setModalServiceTitle('Project Scope');
     setModalScopeSummary(scopeSummary);
     setModalOpen(true);
   };
@@ -34,62 +34,71 @@ export default function App() {
     const el = document.getElementById('estimator');
     if (el) {
       el.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      handleOpenConsultation();
+    }
+  };
+
+  const handleExploreServices = () => {
+    const el = document.getElementById('services');
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
     }
   };
 
   return (
-    <div className="min-h-screen bg-[#0B0F19] text-slate-100 font-sans selection:bg-indigo-500 selection:text-white relative">
-      {/* Navigation */}
+    <div className="min-h-screen bg-[#07090E] text-slate-100 font-sans selection:bg-blue-600 selection:text-white relative">
+      {/* 14. Navigation */}
       <Navbar
-        onOpenConsultation={handleOpenConsultation}
+        onOpenConsultation={() => handleOpenConsultation()}
         onNavigateToEstimator={handleNavigateToEstimator}
       />
 
-      {/* Main Sections */}
+      {/* Main Experience */}
       <main>
-        {/* 1. Hero */}
+        {/* 4. Hero Section */}
         <Hero
           onOpenConsultation={() => handleOpenConsultation()}
-          onNavigateToEstimator={handleNavigateToEstimator}
+          onExploreServices={handleExploreServices}
         />
 
-        {/* 2. Core Services */}
+        {/* 5. Services Section (4 Large Visual Showcases) */}
         <Services onOpenConsultation={handleOpenConsultation} />
 
-        {/* 3. Interactive Project Scope & Budget Estimator */}
+        {/* 6. What We Build Section (For Businesses, For Startups, With AI) */}
+        <WhatWeBuild onOpenConsultation={handleOpenConsultation} />
+
+        {/* 7. How It Works (From idea to launch - 4 stages) */}
+        <Process onOpenConsultation={() => handleOpenConsultation()} />
+
+        {/* 8. Selected Projects (Things we've built) */}
+        <CaseStudies onOpenConsultation={handleOpenConsultation} />
+
+        {/* 9. Why 28 Labs (Technology should make business simpler, not harder) */}
+        <ValueProps />
+
+        {/* 10. AI Section (What could you automate?) */}
+        <AIEngineeringPlayground onOpenConsultation={handleOpenConsultation} />
+
+        {/* 11. Project Starter (Tell us what you want to build - 3 simple questions) */}
         <ProjectEstimator
           onOpenConsultationWithScope={handleOpenConsultationWithScope}
         />
 
-        {/* 4. Interactive AI Engineering Lab Demo */}
-        <AIEngineeringPlayground />
-
-        {/* 5. Case Studies & Proof */}
-        <CaseStudies onOpenConsultation={handleOpenConsultation} />
-
-        {/* 6. How We Work / Delivery Engine */}
-        <Process onOpenConsultation={() => handleOpenConsultation()} />
-
-        {/* 7. Why Founders & Operators Choose 28labs */}
-        <ValueProps />
-
-        {/* 8. Testimonials & Verified Reviews */}
-        <Testimonials />
-
-        {/* 9. FAQs */}
+        {/* 12. FAQ (9 Simple Non-Technical Questions) */}
         <FAQ onOpenConsultation={() => handleOpenConsultation()} />
 
-        {/* 10. Inline Conversion / Contact Form */}
+        {/* 13. Final CTA (Have an idea? Let's build it.) */}
         <ContactSection
-          initialProjectType={modalServiceTitle}
-          initialMessage={modalScopeSummary}
+          onOpenConsultation={() => handleOpenConsultation()}
+          onNavigateToEstimator={handleNavigateToEstimator}
         />
       </main>
 
-      {/* Footer */}
+      {/* 15. Footer */}
       <Footer onOpenConsultation={() => handleOpenConsultation()} />
 
-      {/* Global Consultation Modal */}
+      {/* Global Consultation / Start a Project Modal */}
       <ConsultationModal
         isOpen={modalOpen}
         onClose={() => setModalOpen(false)}

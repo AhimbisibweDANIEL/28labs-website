@@ -1,101 +1,91 @@
 import React from 'react';
-import { WHY_US_GRID } from '../data/content';
-import { Users, Clock, Lock, Sparkles, GitBranch, CheckCircle2, ShieldCheck, XCircle, Check } from 'lucide-react';
+import { motion } from 'motion/react';
+import { WHY_28_LABS } from '../data/content';
+import { Ear, Sparkles, HeartHandshake, ShieldCheck } from 'lucide-react';
 
 export const ValueProps: React.FC = () => {
-  const getIcon = (iconName: string) => {
-    switch (iconName) {
-      case 'Users':
-        return <Users className="w-5 h-5 text-indigo-400" />;
-      case 'Clock':
-        return <Clock className="w-5 h-5 text-cyan-400" />;
-      case 'Lock':
-        return <Lock className="w-5 h-5 text-purple-400" />;
-      case 'Sparkles':
-        return <Sparkles className="w-5 h-5 text-amber-400" />;
-      case 'GitBranch':
-        return <GitBranch className="w-5 h-5 text-emerald-400" />;
+  const getIcon = (idx: number) => {
+    switch (idx) {
+      case 0:
+        return <Ear className="w-6 h-6 text-blue-400" />;
+      case 1:
+        return <Sparkles className="w-6 h-6 text-indigo-400" />;
+      case 2:
+        return <HeartHandshake className="w-6 h-6 text-cyan-400" />;
+      case 3:
+        return <ShieldCheck className="w-6 h-6 text-emerald-400" />;
       default:
-        return <CheckCircle2 className="w-5 h-5 text-indigo-400" />;
+        return <Sparkles className="w-6 h-6 text-blue-400" />;
     }
   };
 
-  const comparison = [
-    { feature: 'Senior Engineering Team', '28labs': true, agency: 'Part-Time Juniors', freelancer: 'Single Dev', inhouse: '6+ Month Hiring' },
-    { feature: 'Fixed Sprint Timelines', '28labs': true, agency: 'Scope Creep', freelancer: 'Unpredictable', inhouse: 'Varies' },
-    { feature: '100% IP & Code Ownership', '28labs': true, agency: 'Vendor Lock-in', freelancer: 'Fragmented', inhouse: true },
-    { feature: 'Production-Grade AI Standards', '28labs': true, agency: 'Basic Wrappers', freelancer: 'Experimental', inhouse: 'High Hiring Cost' },
-    { feature: '30-Day Post-Launch Warranty', '28labs': true, agency: 'Paid Retainer Only', freelancer: 'Uncertain', inhouse: true },
-  ];
-
   return (
-    <section id="why-us" className="py-24 relative bg-slate-950 border-b border-slate-800">
+    <section id="why-us" className="py-24 sm:py-36 relative bg-slate-950/80 border-t border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-950/80 border border-indigo-500/30 text-indigo-300 text-xs font-semibold">
-            <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
-            <span>The 28labs Advantage</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
-            Why Founders & Operators <span className="text-gradient-cyan">Choose 28labs</span>
-          </h2>
-          <p className="text-slate-300 text-base sm:text-lg">
-            We combine the speed of an elite startup squad with the reliability of enterprise software engineering.
-          </p>
+        {/* Section Header with Big Statement */}
+        <div className="text-center max-w-3xl mx-auto mb-20 sm:mb-28">
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <p className="text-xs sm:text-sm font-semibold tracking-widest uppercase text-blue-400 mb-4">
+              Our Philosophy
+            </p>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-extrabold text-white tracking-tight leading-tight">
+              Technology should make business{' '}
+              <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-300 to-white">
+                simpler, not harder.
+              </span>
+            </h2>
+          </motion.div>
         </div>
 
-        {/* 6 Grid Cards */}
-        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6 mb-20">
-          {WHY_US_GRID.map((item, idx) => (
-            <div
-              key={idx}
-              className="glass-card glass-card-hover p-6 rounded-2xl border border-slate-800/80 space-y-4"
+        {/* 4 Large Statements */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 lg:gap-10">
+          {WHY_28_LABS.pillars.map((pillar, idx) => (
+            <motion.div
+              key={pillar.title}
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.12 }}
+              className="group rounded-3xl bg-slate-900/50 backdrop-blur-sm border border-white/10 hover:border-blue-500/30 p-8 sm:p-10 flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:shadow-blue-500/5 hover:-translate-y-1"
             >
-              <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center">
-                {getIcon(item.icon)}
+              <div>
+                <div className="flex items-center justify-between mb-8">
+                  <div className="w-12 h-12 rounded-2xl bg-slate-800/80 border border-white/10 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-md">
+                    {getIcon(idx)}
+                  </div>
+                  <span className="text-xs font-mono font-semibold tracking-wider text-slate-500 uppercase">
+                    0{idx + 1}
+                  </span>
+                </div>
+
+                {/* Pillar Title */}
+                <h3 className="text-xs sm:text-sm font-bold tracking-widest uppercase text-blue-400 mb-2">
+                  {pillar.title}
+                </h3>
+
+                {/* Tagline */}
+                <h4 className="text-xl sm:text-2xl font-bold text-white mb-4 leading-snug">
+                  {pillar.tagline}
+                </h4>
+
+                {/* Description */}
+                <p className="text-sm sm:text-base text-slate-300 leading-relaxed font-normal">
+                  {pillar.description}
+                </p>
               </div>
-              <h3 className="text-lg font-bold text-white">{item.title}</h3>
-              <p className="text-slate-300 text-xs leading-relaxed">{item.description}</p>
-            </div>
+
+              <div className="pt-6 mt-6 border-t border-white/5 flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-blue-400" />
+                <span className="text-xs text-slate-400 font-medium">Customer-first commitment</span>
+              </div>
+            </motion.div>
           ))}
-        </div>
-
-        {/* Comparison Matrix Table */}
-        <div className="glass-card rounded-2xl border border-slate-800 p-6 sm:p-8 space-y-6">
-          <div className="text-center max-w-xl mx-auto space-y-2">
-            <h3 className="text-xl font-bold text-white">How 28labs Compares to Alternatives</h3>
-            <p className="text-xs text-slate-400">See why high-growth companies partner with us over traditional options.</p>
-          </div>
-
-          <div className="overflow-x-auto">
-            <table className="w-full text-left border-collapse min-w-[600px]">
-              <thead>
-                <tr className="border-b border-slate-800 text-xs text-slate-400">
-                  <th className="py-3 px-4 font-semibold">Evaluation Criteria</th>
-                  <th className="py-3 px-4 font-bold text-indigo-400 bg-indigo-950/40 rounded-t-xl">28labs Boutique</th>
-                  <th className="py-3 px-4 font-semibold">Legacy Agencies</th>
-                  <th className="py-3 px-4 font-semibold">Freelance Devs</th>
-                  <th className="py-3 px-4 font-semibold">In-House Hire</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-slate-800/80 text-xs">
-                {comparison.map((row, idx) => (
-                  <tr key={idx} className="hover:bg-slate-900/40">
-                    <td className="py-3.5 px-4 font-medium text-slate-200">{row.feature}</td>
-                    <td className="py-3.5 px-4 font-bold text-emerald-400 bg-indigo-950/20 flex items-center gap-1">
-                      <Check className="w-4 h-4 text-emerald-400 shrink-0" />
-                      <span>Guaranteed</span>
-                    </td>
-                    <td className="py-3.5 px-4 text-slate-400">{row.agency}</td>
-                    <td className="py-3.5 px-4 text-slate-400">{row.freelancer}</td>
-                    <td className="py-3.5 px-4 text-slate-400">{row.inhouse === true ? 'Yes (Slow)' : row.inhouse}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
         </div>
 
       </div>

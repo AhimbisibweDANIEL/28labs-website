@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { X, Calendar, CheckCircle2, Send, Clock, ShieldCheck, Mail, User, Building2 } from 'lucide-react';
+import { X, Calendar, CheckCircle2, Send, ShieldCheck, Mail, User, Building2 } from 'lucide-react';
 
 interface ConsultationModalProps {
   isOpen: boolean;
@@ -38,16 +38,16 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
               <Calendar className="w-5 h-5 text-cyan-400" />
             </div>
             <div>
-              <h3 className="text-xl font-bold text-white">Book a Consultation</h3>
+              <h3 className="text-xl font-bold text-white">Start a Project</h3>
               <p className="text-xs text-indigo-300 font-medium">
-                {initialServiceTitle ? `Focus: ${initialServiceTitle}` : 'Direct Senior Architect Discovery Call'}
+                {initialServiceTitle ? `Focus: ${initialServiceTitle}` : 'Tell us what you are building'}
               </p>
             </div>
           </div>
 
           <button
             onClick={onClose}
-            className="p-2 rounded-lg bg-slate-800 text-slate-400 hover:text-white transition-colors"
+            className="p-2 rounded-lg bg-slate-800 text-slate-400 hover:text-white transition-colors cursor-pointer"
           >
             <X className="w-5 h-5" />
           </button>
@@ -58,9 +58,9 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
             <div className="w-14 h-14 rounded-2xl bg-emerald-950 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto">
               <CheckCircle2 className="w-7 h-7" />
             </div>
-            <h4 className="text-xl font-bold text-white">Consultation Request Confirmed!</h4>
+            <h4 className="text-xl font-bold text-white">Inquiry Received!</h4>
             <p className="text-xs text-slate-300 max-w-sm mx-auto">
-              We’ve sent a confirmation email to <strong className="text-white">{email}</strong>. Our senior lead architect will follow up within 24 hours with a calendar invitation and initial technical brief.
+              Thank you, <strong className="text-white">{fullName}</strong>. We’ve received your inquiry and will reach out to <strong className="text-white">{email}</strong> to discuss your project requirements.
             </p>
             <button
               onClick={() => {
@@ -89,7 +89,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
                 <input
                   type="text"
                   required
-                  placeholder="e.g. Sarah Chen"
+                  placeholder="Your Name"
                   value={fullName}
                   onChange={(e) => setFullName(e.target.value)}
                   className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
@@ -103,7 +103,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
                 <input
                   type="email"
                   required
-                  placeholder="sarah@tech.com"
+                  placeholder="you@company.com"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
                   className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
@@ -117,7 +117,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
               </label>
               <input
                 type="text"
-                placeholder="e.g. Nexus Labs Inc."
+                placeholder="Company or Project Name"
                 value={company}
                 onChange={(e) => setCompany(e.target.value)}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500"
@@ -128,7 +128,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
               <label className="text-[11px] font-bold text-slate-300">Project Context / Objectives</label>
               <textarea
                 rows={3}
-                placeholder="Briefly describe what you want to build or modernise..."
+                placeholder="Briefly describe what you want to build or improve..."
                 value={notes}
                 onChange={(e) => setNotes(e.target.value)}
                 className="w-full px-3.5 py-2.5 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 resize-none"
@@ -137,7 +137,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
 
             <div className="flex items-center gap-2 text-[11px] text-slate-400 pt-1">
               <ShieldCheck className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-              <span>Includes NDA protection & 100% IP ownership guarantee.</span>
+              <span>All project details are kept strictly confidential.</span>
             </div>
 
             <button
@@ -145,7 +145,7 @@ export const ConsultationModal: React.FC<ConsultationModalProps> = ({
               className="w-full py-3.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-indigo-600 to-cyan-500 hover:from-indigo-500 hover:to-cyan-400 flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-indigo-500/20"
             >
               <Send className="w-3.5 h-3.5" />
-              <span>Confirm & Schedule Consultation</span>
+              <span>Submit Project Inquiry</span>
             </button>
 
           </form>

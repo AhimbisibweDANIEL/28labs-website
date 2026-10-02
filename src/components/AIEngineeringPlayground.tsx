@@ -1,136 +1,154 @@
 import React, { useState } from 'react';
-import { Cpu, Sparkles, Terminal, Play, ArrowRight, Shield, Database, CheckCircle2, RefreshCw } from 'lucide-react';
+import { motion } from 'motion/react';
+import { AI_AUTOMATION_EXAMPLES } from '../data/content';
+import { 
+  Sparkles, 
+  ArrowRight, 
+  MessageSquare, 
+  Bot, 
+  Bell, 
+  FileText, 
+  Cpu, 
+  Database, 
+  Inbox, 
+  Workflow, 
+  CheckCircle2 
+} from 'lucide-react';
 
-export const AIEngineeringPlayground: React.FC = () => {
-  const [selectedPrompt, setSelectedPrompt] = useState<string>('architecture');
-  const [isProcessing, setIsProcessing] = useState<boolean>(false);
-  const [output, setOutput] = useState<string | null>(null);
+interface AIAutomationSectionProps {
+  onOpenConsultation?: (topic?: string) => void;
+}
 
-  const presets = [
-    {
-      id: 'architecture',
-      title: 'Generate RAG System Blueprint',
-      desc: 'Generates vector search & LLM cost routing specs for enterprise data',
-      result: `{
-  "system_type": "Hybrid Multimodal RAG Pipeline",
-  "recommended_models": {
-    "primary_reasoning": "Gemini 2.5 Pro (340ms p95)",
-    "vector_embedding": "text-embedding-004",
-    "fallback_model": "Gemini 2.5 Flash (cost optimization)"
-  },
-  "vector_db": "Qdrant / Pinecone (HNSW Indexing)",
-  "security_controls": ["Zero retention data policy", "Prompt injection guardrails"],
-  "estimated_token_cost_per_10k_queries": "$4.20",
-  "architectural_readiness": "100% Deterministic Schema Validated"
-}`
-    },
-    {
-      id: 'workflow',
-      title: 'Multi-Agent Logistics Auto-Dispatch',
-      desc: 'Simulates autonomous document extraction & ERP booking trigger',
-      result: `[AGENT 1: OCR_Extract] Processed Manifest #40921 (PDF -> JSON Schema)
-[AGENT 2: Compliance_Check] Verified Customs Duty HS Code: 8471.30.00
-[AGENT 3: Risk_Evaluator] Zero anomalies detected in freight value declaration.
-[AGENT 4: ERP_Dispatcher] Executing POST https://erp.logistics.internal/api/v1/shipments
->>> Status: 201 Created | Dispatch Confirmed in 1.2 seconds.`
-    },
-    {
-      id: 'audit',
-      title: 'Code Security & Performance Benchmark',
-      desc: 'Checks React/Next.js bundle size and security vulnerabilities',
-      result: `=== 28labs Code Quality Audit ===
-✓ Lighthouse Performance Score: 99 / 100
-✓ OWASP Top 10 Security Audit: PASS (0 High / 0 Med)
-✓ Sub-100ms API Latency Verified on Cloud Run Containers
-✓ 100% Type-Safe TypeScript Standards Enforced`
+export const AIEngineeringPlayground: React.FC<AIAutomationSectionProps> = ({ onOpenConsultation }) => {
+  const [activeWorkflow, setActiveWorkflow] = useState<number>(0);
+
+  const getStepIcon = (iconName: string) => {
+    switch (iconName) {
+      case 'MessageSquare':
+        return <MessageSquare className="w-5 h-5 text-blue-400" />;
+      case 'Sparkles':
+        return <Sparkles className="w-5 h-5 text-indigo-400" />;
+      case 'Bell':
+        return <Bell className="w-5 h-5 text-amber-400" />;
+      case 'FileText':
+        return <FileText className="w-5 h-5 text-emerald-400" />;
+      case 'Cpu':
+        return <Cpu className="w-5 h-5 text-blue-400" />;
+      case 'Database':
+        return <Database className="w-5 h-5 text-indigo-400" />;
+      case 'Inbox':
+        return <Inbox className="w-5 h-5 text-amber-400" />;
+      case 'Workflow':
+        return <Workflow className="w-5 h-5 text-blue-400" />;
+      case 'CheckCircle':
+        return <CheckCircle2 className="w-5 h-5 text-emerald-400" />;
+      default:
+        return <Sparkles className="w-5 h-5 text-blue-400" />;
     }
-  ];
-
-  const handleRunSimulation = (id: string) => {
-    setSelectedPrompt(id);
-    setIsProcessing(true);
-    setOutput(null);
-
-    setTimeout(() => {
-      const preset = presets.find((p) => p.id === id);
-      setOutput(preset ? preset.result : '');
-      setIsProcessing(false);
-    }, 800);
   };
 
   return (
-    <section className="py-20 relative bg-slate-950 border-b border-slate-800">
+    <section id="ai-automation-section" className="py-24 sm:py-36 relative bg-slate-950/70 border-t border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        {/* Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4 mb-12">
-          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/80 border border-cyan-500/30 text-cyan-300 text-xs font-semibold">
-            <Cpu className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Interactive AI Lab Playground</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white">
-            See How 28labs <span className="text-gradient-cyan">Engineers AI Systems</span>
-          </h2>
-          <p className="text-slate-300 text-sm sm:text-base">
-            Select an AI architecture simulation below to preview how our custom reasoning pipelines operate under production constraints.
-          </p>
+        {/* Section Header */}
+        <div className="text-center max-w-3xl mx-auto mb-16 sm:mb-24">
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <p className="text-xs sm:text-sm font-semibold tracking-widest uppercase text-blue-400 mb-3">
+              Practical Intelligence
+            </p>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-5">
+              What could you automate?
+            </h2>
+            <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">
+              Tell us about a repetitive task in your business and we'll explore how AI could help.
+            </p>
+          </motion.div>
         </div>
 
-        {/* Playground Container */}
-        <div className="glass-card rounded-2xl border border-slate-800 p-6 sm:p-8 max-w-4xl mx-auto space-y-6">
-          
-          {/* Preset Buttons */}
-          <div className="grid sm:grid-cols-3 gap-3">
-            {presets.map((p) => (
-              <button
-                key={p.id}
-                onClick={() => handleRunSimulation(p.id)}
-                className={`p-4 rounded-xl text-left transition-all cursor-pointer border ${
-                  selectedPrompt === p.id
-                    ? 'bg-indigo-600/30 border-indigo-500 text-white shadow-lg shadow-indigo-500/20'
-                    : 'bg-slate-900/80 border-slate-800 text-slate-400 hover:text-slate-200'
-                }`}
-              >
-                <div className="text-xs font-bold text-white flex items-center gap-1.5">
-                  <Sparkles className="w-3.5 h-3.5 text-cyan-400 shrink-0" />
-                  <span>{p.title}</span>
+        {/* 3 Visual Workflow Cards */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+          {AI_AUTOMATION_EXAMPLES.map((workflow, idx) => (
+            <motion.div
+              key={workflow.id}
+              initial={{ opacity: 0, y: 25 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: idx * 0.15 }}
+              onClick={() => setActiveWorkflow(idx)}
+              className={`group cursor-pointer rounded-3xl p-7 flex flex-col justify-between transition-all duration-300 border ${
+                activeWorkflow === idx
+                  ? 'bg-slate-900/90 border-blue-500/50 shadow-2xl shadow-blue-500/10 -translate-y-1'
+                  : 'bg-slate-900/40 border-white/10 hover:border-white/20'
+              }`}
+            >
+              <div>
+                {/* Workflow Title */}
+                <div className="flex items-center justify-between mb-4">
+                  <h3 className="text-xs font-bold tracking-widest uppercase text-blue-400">
+                    {workflow.title}
+                  </h3>
+                  <span className={`w-2 h-2 rounded-full ${activeWorkflow === idx ? 'bg-blue-400 animate-ping' : 'bg-slate-600'}`} />
                 </div>
-                <div className="text-[11px] text-slate-400 mt-1">{p.desc}</div>
-              </button>
-            ))}
-          </div>
 
-          {/* Terminal Console */}
-          <div className="rounded-xl bg-slate-950 border border-slate-800 overflow-hidden shadow-2xl">
-            <div className="px-4 py-2.5 bg-slate-900 border-b border-slate-800 flex items-center justify-between text-xs text-slate-400 font-mono">
-              <span className="flex items-center gap-2">
-                <Terminal className="w-3.5 h-3.5 text-indigo-400" />
-                28labs-ai-lab // output_stream
-              </span>
-              <button
-                onClick={() => handleRunSimulation(selectedPrompt)}
-                className="flex items-center gap-1 text-[11px] text-indigo-400 hover:text-indigo-300 cursor-pointer"
-              >
-                <RefreshCw className={`w-3 h-3 ${isProcessing ? 'animate-spin' : ''}`} />
-                <span>Re-run Test</span>
-              </button>
-            </div>
+                <p className="text-base font-semibold text-white mb-8">
+                  {workflow.subtitle}
+                </p>
 
-            <div className="p-4 font-mono text-xs text-slate-300 min-h-[200px] flex items-center justify-center">
-              {isProcessing ? (
-                <div className="flex flex-col items-center gap-3 text-slate-400">
-                  <RefreshCw className="w-6 h-6 text-cyan-400 animate-spin" />
-                  <span>Processing reasoning engine request...</span>
+                {/* Animated Steps Flow */}
+                <div className="space-y-4">
+                  {workflow.steps.map((stepItem, stepIdx) => (
+                    <div key={stepIdx} className="relative">
+                      {/* Connector Line */}
+                      {stepIdx < workflow.steps.length - 1 && (
+                        <div className="absolute left-4 top-10 bottom-0 w-0.5 bg-gradient-to-b from-blue-500/30 to-indigo-500/10 h-4 z-0" />
+                      )}
+
+                      <div className="flex items-center gap-3.5 relative z-10">
+                        <div className="w-8 h-8 rounded-xl bg-slate-800 border border-white/10 flex items-center justify-center shrink-0">
+                          {getStepIcon(stepItem.icon)}
+                        </div>
+                        <span className="text-xs sm:text-sm text-slate-200 font-medium">
+                          {stepItem.label}
+                        </span>
+                      </div>
+                    </div>
+                  ))}
                 </div>
-              ) : (
-                <pre className="w-full text-left overflow-x-auto text-emerald-400">
-                  <code>{output || presets[0].result}</code>
-                </pre>
-              )}
-            </div>
-          </div>
+              </div>
 
+              {/* Status footer inside card */}
+              <div className="pt-6 mt-8 border-t border-white/5 flex items-center justify-between text-xs text-slate-400">
+                <span>Hands-free workflow</span>
+                <span className="text-blue-400 font-medium group-hover:translate-x-0.5 transition-transform flex items-center gap-1">
+                  Active Demo <ArrowRight className="w-3.5 h-3.5" />
+                </span>
+              </div>
+            </motion.div>
+          ))}
         </div>
+
+        {/* Global Section Action */}
+        <motion.div
+          initial={{ opacity: 0, y: 15 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.2 }}
+          className="text-center"
+        >
+          <button
+            onClick={() => onOpenConsultation?.('AI Automation')}
+            className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-medium text-base shadow-lg shadow-blue-600/25 hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all duration-200 cursor-pointer"
+          >
+            <span>Explore AI Automation</span>
+            <ArrowRight className="w-4 h-4" />
+          </button>
+        </motion.div>
 
       </div>
     </section>

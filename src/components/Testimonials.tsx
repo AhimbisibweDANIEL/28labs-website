@@ -1,8 +1,40 @@
 import React from 'react';
-import { TESTIMONIALS } from '../data/content';
-import { Star, Quote, MessageSquare, CheckCircle2 } from 'lucide-react';
+import { MessageSquare, CheckCircle2, ShieldCheck, Compass, Code2, RefreshCw } from 'lucide-react';
 
 export const Testimonials: React.FC = () => {
+  const expectations = [
+    {
+      title: 'Clear communication.',
+      description: 'You stay informed throughout the development process without technical confusion or guesswork.',
+      icon: MessageSquare,
+      tag: 'Collaboration'
+    },
+    {
+      title: 'Transparent project scope.',
+      description: 'Clear alignment on what is being built, the milestones, and the roadmap before development begins.',
+      icon: Compass,
+      tag: 'Planning'
+    },
+    {
+      title: 'Regular progress updates.',
+      description: 'Consistent progress updates and reviewable demos as the product develops so you see real progress taking shape.',
+      icon: Code2,
+      tag: 'Visibility'
+    },
+    {
+      title: 'Practical solutions.',
+      description: 'Technology choices and software architecture chosen to solve your actual business needs.',
+      icon: CheckCircle2,
+      tag: 'Practicality'
+    },
+    {
+      title: 'Post-launch support.',
+      description: 'Reliable deployment, handover, and ongoing support to ensure everything continues running smoothly.',
+      icon: ShieldCheck,
+      tag: 'Reliability'
+    }
+  ];
+
   return (
     <section className="py-24 relative bg-slate-950/60 border-b border-slate-800">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
@@ -10,55 +42,47 @@ export const Testimonials: React.FC = () => {
         {/* Header */}
         <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
           <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-950/80 border border-indigo-500/30 text-indigo-300 text-xs font-semibold">
-            <MessageSquare className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Verified Client Feedback</span>
+            <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
+            <span>WORKING WITH US</span>
           </div>
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
-            Trusted by CTOs, Founders & <span className="text-gradient-cyan">Growth Leaders</span>
+            WHAT CLIENTS <span className="text-gradient-cyan">CAN EXPECT</span>
           </h2>
           <p className="text-slate-300 text-base sm:text-lg">
-            Read how our senior software & AI engineering sprint teams transformed critical roadmaps.
+            When you partner with 28 Labs, our focus is on building practical, reliable technology with complete transparency.
           </p>
         </div>
 
-        {/* Testimonials Grid */}
-        <div className="grid md:grid-cols-3 gap-8">
-          {TESTIMONIALS.map((t) => (
+        {/* Expectation Cards Grid */}
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {expectations.map((item, idx) => (
             <div
-              key={t.id}
-              className="glass-card glass-card-hover p-8 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-6 relative"
+              key={idx}
+              className="glass-card glass-card-hover p-7 rounded-2xl border border-slate-800 flex flex-col justify-between space-y-4 relative"
             >
               <div className="space-y-4">
-                
-                {/* Rating Stars */}
                 <div className="flex items-center justify-between">
-                  <div className="flex items-center gap-1 text-amber-400">
-                    {[...Array(t.rating)].map((_, i) => (
-                      <Star key={i} className="w-4 h-4 fill-amber-400" />
-                    ))}
+                  <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center">
+                    <item.icon className="w-5 h-5 text-cyan-400" />
                   </div>
-                  <Quote className="w-6 h-6 text-indigo-500/30" />
+                  <span className="text-[11px] font-mono px-2.5 py-1 rounded bg-slate-900/90 text-indigo-300 border border-slate-800">
+                    {item.tag}
+                  </span>
                 </div>
 
-                {/* Quote Text */}
-                <p className="text-slate-200 text-sm italic leading-relaxed">
-                  "{t.quote}"
+                <h3 className="text-xl font-bold text-white">
+                  {item.title}
+                </h3>
+
+                <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">
+                  {item.description}
                 </p>
-
               </div>
 
-              {/* Author Row */}
-              <div className="pt-4 border-t border-slate-800/80 space-y-1">
-                <div className="text-sm font-bold text-white flex items-center gap-1.5">
-                  <span>{t.clientName}</span>
-                  <CheckCircle2 className="w-3.5 h-3.5 text-cyan-400" />
-                </div>
-                <div className="text-xs text-indigo-300 font-medium">{t.role}, {t.company}</div>
-                <div className="text-[11px] text-slate-400 font-mono pt-1">
-                  Project: {t.projectType}
-                </div>
+              <div className="pt-4 border-t border-slate-800/80 flex items-center gap-2 text-xs text-slate-400">
+                <CheckCircle2 className="w-4 h-4 text-emerald-400 shrink-0" />
+                <span>Core 28 Labs Standard</span>
               </div>
-
             </div>
           ))}
         </div>

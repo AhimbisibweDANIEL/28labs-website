@@ -1,138 +1,120 @@
-import React, { useState } from 'react';
-import { PROCESS_STEPS } from '../data/content';
-import { Compass, Code2, ShieldCheck, Rocket, CheckCircle2, Clock, ArrowRight, Layers } from 'lucide-react';
+import React from 'react';
+import { motion } from 'motion/react';
+import { HOW_IT_WORKS_STEPS } from '../data/content';
+import { ArrowRight, Lightbulb, Palette, Code2, Rocket } from 'lucide-react';
 
 interface ProcessProps {
   onOpenConsultation: () => void;
 }
 
 export const Process: React.FC<ProcessProps> = ({ onOpenConsultation }) => {
-  const [activeStep, setActiveStep] = useState<number>(0);
-
-  const getStepIcon = (icon: string) => {
-    switch (icon) {
-      case 'Compass':
-        return <Compass className="w-5 h-5 text-indigo-400" />;
-      case 'Code2':
-        return <Code2 className="w-5 h-5 text-cyan-400" />;
-      case 'ShieldCheck':
-        return <ShieldCheck className="w-5 h-5 text-emerald-400" />;
-      case 'Rocket':
-        return <Rocket className="w-5 h-5 text-purple-400" />;
+  const getStageIcon = (stepNumber: string) => {
+    switch (stepNumber) {
+      case '01':
+        return <Lightbulb className="w-6 h-6 text-blue-400" />;
+      case '02':
+        return <Palette className="w-6 h-6 text-indigo-400" />;
+      case '03':
+        return <Code2 className="w-6 h-6 text-cyan-400" />;
+      case '04':
+        return <Rocket className="w-6 h-6 text-emerald-400" />;
       default:
-        return <Clock className="w-5 h-5 text-indigo-400" />;
+        return <Lightbulb className="w-6 h-6 text-blue-400" />;
     }
   };
 
   return (
-    <section id="process" className="py-24 relative bg-slate-950/80 border-b border-slate-800">
+    <section id="process" className="py-24 sm:py-32 relative bg-slate-950/70 border-t border-white/5">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header */}
-        <div className="text-center max-w-3xl mx-auto space-y-4 mb-16">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-950/80 border border-indigo-500/30 text-indigo-300 text-xs font-semibold">
-            <Layers className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Delivery Framework</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
-            How We Work: <span className="text-gradient-cyan">The 28labs Delivery Engine</span>
-          </h2>
-          <p className="text-slate-300 text-base sm:text-lg">
-            A transparent 4-step execution framework designed to eliminate scope creep, guarantee velocity, and deliver production-ready software on schedule.
-          </p>
+        <div className="text-center max-w-3xl mx-auto mb-20 sm:mb-24">
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <p className="text-xs sm:text-sm font-semibold tracking-widest uppercase text-blue-400 mb-3">
+              How It Works
+            </p>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-5">
+              From idea to launch.
+            </h2>
+            <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-xl mx-auto">
+              A smooth, transparent journey where your vision turns into a dependable, high-impact digital product.
+            </p>
+          </motion.div>
         </div>
 
-        {/* Step Selector Pills */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12">
-          {PROCESS_STEPS.map((step, idx) => (
-            <button
-              key={step.stepNumber}
-              onClick={() => setActiveStep(idx)}
-              className={`p-4 rounded-2xl border text-left transition-all cursor-pointer flex flex-col justify-between ${
-                activeStep === idx
-                  ? 'bg-indigo-600/30 border-indigo-500 text-white shadow-xl shadow-indigo-500/20'
-                  : 'bg-slate-900/80 border-slate-800 text-slate-400 hover:border-slate-700'
-              }`}
-            >
-              <div className="flex items-center justify-between">
-                <span className="text-2xl font-extrabold text-indigo-400">{step.stepNumber}</span>
-                <span className="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-950 text-cyan-300 border border-slate-800">
-                  {step.duration}
-                </span>
-              </div>
-              <div className="mt-4 text-sm font-bold text-white">{step.title}</div>
-            </button>
-          ))}
-        </div>
+        {/* 4 Large Stages - Horizontal grid on desktop, smooth vertical stack on mobile */}
+        <div className="relative">
+          {/* Subtle connection bar across steps on desktop */}
+          <div className="hidden lg:block absolute top-1/2 left-[12%] right-[12%] h-0.5 bg-gradient-to-r from-blue-500/20 via-indigo-500/30 to-emerald-500/20 -translate-y-12 z-0" />
 
-        {/* Active Step Inspector Box */}
-        <div className="glass-card rounded-2xl p-6 sm:p-10 border border-slate-800 relative overflow-hidden">
-          <div className="grid lg:grid-cols-12 gap-8 items-center">
-            
-            {/* Step Left Info */}
-            <div className="lg:col-span-7 space-y-6">
-              
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-center">
-                  {getStepIcon(PROCESS_STEPS[activeStep].icon)}
-                </div>
-                <div>
-                  <span className="text-xs font-bold text-indigo-400 uppercase tracking-wider">
-                    Phase {PROCESS_STEPS[activeStep].stepNumber} // {PROCESS_STEPS[activeStep].duration}
-                  </span>
-                  <h3 className="text-2xl sm:text-3xl font-extrabold text-white">
-                    {PROCESS_STEPS[activeStep].title}
-                  </h3>
-                </div>
-              </div>
-
-              <p className="text-slate-300 text-base leading-relaxed">
-                {PROCESS_STEPS[activeStep].description}
-              </p>
-
-              {/* Deliverables Checklist */}
-              <div className="space-y-3">
-                <h4 className="text-xs font-bold uppercase tracking-wider text-slate-400">
-                  Concrete Phase Deliverables
-                </h4>
-                <div className="grid sm:grid-cols-2 gap-2.5">
-                  {PROCESS_STEPS[activeStep].deliverables.map((deliv, idx) => (
-                    <div
-                      key={idx}
-                      className="flex items-center gap-2.5 p-3 rounded-xl bg-slate-950/80 border border-slate-800 text-xs text-slate-200"
-                    >
-                      <CheckCircle2 className="w-4 h-4 text-cyan-400 shrink-0" />
-                      <span>{deliv}</span>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-            </div>
-
-            {/* Step Right Callout */}
-            <div className="lg:col-span-5 bg-slate-950 p-6 sm:p-8 rounded-2xl border border-slate-800 space-y-6">
-              <div className="space-y-2">
-                <span className="text-xs font-mono text-cyan-400 uppercase">Guaranteed Outcome</span>
-                <h4 className="text-lg font-bold text-white">
-                  {PROCESS_STEPS[activeStep].subtitle}
-                </h4>
-                <p className="text-xs text-slate-400 leading-relaxed">
-                  We enforce automated CI/CD staging builds so you never have to guess what was built. Review live progress every Friday.
-                </p>
-              </div>
-
-              <button
-                onClick={onOpenConsultation}
-                className="w-full py-3.5 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-indigo-600 to-cyan-500 hover:from-indigo-500 hover:to-cyan-400 transition-all flex items-center justify-center gap-2 cursor-pointer shadow-lg shadow-indigo-500/20"
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 relative z-10">
+            {HOW_IT_WORKS_STEPS.map((stage, idx) => (
+              <motion.div
+                key={stage.stepNumber}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: idx * 0.12 }}
+                className="group relative rounded-3xl bg-slate-900/60 backdrop-blur-sm border border-white/10 hover:border-blue-500/30 p-7 flex flex-col justify-between transition-all duration-300 hover:shadow-xl hover:shadow-blue-500/5 hover:-translate-y-1"
               >
-                <span>Book Sprint Discovery Call</span>
-                <ArrowRight className="w-4 h-4" />
-              </button>
-            </div>
+                <div>
+                  {/* Step number & Icon header */}
+                  <div className="flex items-center justify-between mb-8">
+                    <span className="text-3xl sm:text-4xl font-black text-slate-500 group-hover:text-blue-400 transition-colors font-mono">
+                      {stage.stepNumber}
+                    </span>
+                    <div className="w-12 h-12 rounded-2xl bg-slate-800/80 border border-white/10 flex items-center justify-center group-hover:scale-110 group-hover:border-blue-500/30 transition-all duration-300 shadow-md">
+                      {getStageIcon(stage.stepNumber)}
+                    </div>
+                  </div>
 
+                  {/* Stage Title */}
+                  <h3 className="text-xl font-bold text-white mb-2 leading-snug">
+                    {stage.title}
+                  </h3>
+
+                  {/* Subtitle */}
+                  {stage.subtitle && (
+                    <p className="text-xs font-semibold uppercase tracking-wider text-blue-400/90 mb-3">
+                      {stage.subtitle}
+                    </p>
+                  )}
+
+                  {/* Description */}
+                  <p className="text-sm text-slate-300 leading-relaxed font-normal">
+                    {stage.description}
+                  </p>
+                </div>
+
+                <div className="pt-8 mt-6 border-t border-white/5 flex items-center gap-2 text-xs font-medium text-slate-400 group-hover:text-blue-300 transition-colors">
+                  <span>Stage {idx + 1} of 4</span>
+                </div>
+              </motion.div>
+            ))}
           </div>
         </div>
+
+        {/* Bottom CTA Banner */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.5, delay: 0.3 }}
+          className="mt-16 text-center"
+        >
+          <button
+            onClick={onOpenConsultation}
+            className="inline-flex items-center gap-2.5 px-8 py-4 rounded-full bg-slate-900 hover:bg-slate-800 text-white font-medium text-sm border border-white/10 hover:border-blue-500/40 shadow-lg shadow-black/40 transition-all duration-200 cursor-pointer hover:-translate-y-0.5"
+          >
+            <span>Ready to start with Step 01?</span>
+            <ArrowRight className="w-4 h-4 text-blue-400" />
+          </button>
+        </motion.div>
 
       </div>
     </section>

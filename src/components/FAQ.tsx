@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'motion/react';
 import { FAQS } from '../data/content';
-import { HelpCircle, ChevronDown, ChevronUp, Search, MessageCircle } from 'lucide-react';
+import { HelpCircle, ChevronDown, MessageCircle } from 'lucide-react';
 
 interface FAQProps {
   onOpenConsultation: () => void;
@@ -8,88 +9,99 @@ interface FAQProps {
 
 export const FAQ: React.FC<FAQProps> = ({ onOpenConsultation }) => {
   const [openId, setOpenId] = useState<string | null>('faq-1');
-  const [searchQuery, setSearchQuery] = useState<string>('');
 
   const toggle = (id: string) => {
     setOpenId(openId === id ? null : id);
   };
 
-  const filteredFaqs = FAQS.filter(
-    (faq) =>
-      faq.question.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      faq.answer.toLowerCase().includes(searchQuery.toLowerCase())
-  );
-
   return (
-    <section id="faq" className="py-24 relative bg-slate-950 border-b border-slate-800">
+    <section id="faq" className="py-24 sm:py-36 relative scroll-mt-10 border-t border-white/5">
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Header */}
-        <div className="text-center space-y-4 mb-12">
-          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-950/80 border border-indigo-500/30 text-indigo-300 text-xs font-semibold">
-            <HelpCircle className="w-3.5 h-3.5 text-cyan-400" />
-            <span>Frequently Asked Questions</span>
-          </div>
-          <h2 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-            Got Questions? <span className="text-gradient-cyan">We Have Answers.</span>
-          </h2>
-          <p className="text-slate-300 text-sm sm:text-base">
-            Everything you need to know about our engineering process, IP transfer, pricing, and project guarantees.
-          </p>
+        <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20">
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.5 }}
+          >
+            <p className="text-xs sm:text-sm font-semibold tracking-widest uppercase text-blue-400 mb-3">
+              Clear Answers
+            </p>
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
+              Frequently asked questions.
+            </h2>
+            <p className="text-base sm:text-lg text-slate-300 leading-relaxed">
+              Everything you need to know about starting a project with 28 Labs.
+            </p>
+          </motion.div>
         </div>
 
-        {/* Search Input */}
-        <div className="relative mb-8 max-w-lg mx-auto">
-          <Search className="w-4 h-4 text-slate-400 absolute left-4 top-1/2 -translate-y-1/2" />
-          <input
-            type="text"
-            placeholder="Search questions (e.g. code ownership, AI reliability, timelines)..."
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            className="w-full pl-11 pr-4 py-3 rounded-xl bg-slate-900 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors"
-          />
-        </div>
-
-        {/* Accordions */}
-        <div className="space-y-3">
-          {filteredFaqs.map((faq) => {
+        {/* Accordion List */}
+        <div className="space-y-4">
+          {FAQS.map((faq, idx) => {
             const isOpen = openId === faq.id;
             return (
-              <div
+              <motion.div
                 key={faq.id}
-                className="glass-card rounded-2xl border border-slate-800 overflow-hidden transition-all duration-200"
+                initial={{ opacity: 0, y: 15 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.4, delay: idx * 0.05 }}
+                className={`rounded-2xl border transition-all duration-300 overflow-hidden ${
+                  isOpen
+                    ? 'bg-slate-900/80 border-blue-500/30 shadow-lg shadow-blue-500/5'
+                    : 'bg-slate-900/30 border-white/5 hover:border-white/15'
+                }`}
               >
                 <button
                   onClick={() => toggle(faq.id)}
-                  className="w-full p-5 text-left flex items-center justify-between text-sm sm:text-base font-bold text-white hover:text-indigo-300 transition-colors cursor-pointer"
+                  className="w-full p-6 text-left flex items-center justify-between gap-4 cursor-pointer"
+                  aria-expanded={isOpen}
                 >
-                  <span className="pr-4">{faq.question}</span>
-                  {isOpen ? (
-                    <ChevronUp className="w-5 h-5 text-indigo-400 shrink-0" />
-                  ) : (
-                    <ChevronDown className="w-5 h-5 text-slate-500 shrink-0" />
-                  )}
+                  <span className="text-base sm:text-lg font-semibold text-white">
+                    {faq.question}
+                  </span>
+                  <div
+                    className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 transition-transform duration-300 ${
+                      isOpen ? 'rotate-180 bg-blue-500/20 text-blue-400' : 'bg-slate-800 text-slate-400'
+                    }`}
+                  >
+                    <ChevronDown className="w-4 h-4" />
+                  </div>
                 </button>
 
-                {isOpen && (
-                  <div className="px-5 pb-5 text-xs sm:text-sm text-slate-300 leading-relaxed border-t border-slate-800/80 pt-3 animate-in fade-in duration-200">
-                    {faq.answer}
-                  </div>
-                )}
-              </div>
+                <AnimatePresence initial={false}>
+                  {isOpen && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: 'auto', opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{ duration: 0.25, ease: 'easeInOut' }}
+                    >
+                      <div className="px-6 pb-6 pt-1 text-slate-300 leading-relaxed text-sm sm:text-base border-t border-white/5">
+                        {faq.answer}
+                      </div>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </motion.div>
             );
           })}
         </div>
 
-        {/* Still Have Questions CTA */}
-        <div className="mt-12 text-center bg-slate-900/60 p-6 rounded-2xl border border-slate-800/80 space-y-3">
-          <p className="text-xs text-slate-400">Have a custom question or specific enterprise compliance request?</p>
+        {/* Support Note */}
+        <div className="mt-12 text-center p-8 rounded-3xl bg-slate-900/40 border border-white/5">
+          <p className="text-sm text-slate-300 mb-3">
+            Have a question that isn't answered here?
+          </p>
           <button
             onClick={onOpenConsultation}
-            className="inline-flex items-center gap-2 text-xs font-bold text-cyan-400 hover:text-cyan-300 underline cursor-pointer"
+            className="inline-flex items-center gap-2 text-sm font-semibold text-blue-400 hover:text-blue-300 transition-colors cursor-pointer"
           >
             <MessageCircle className="w-4 h-4" />
-            <span>Speak directly with a Lead Architect</span>
+            <span>Chat directly with our team</span>
           </button>
         </div>
 

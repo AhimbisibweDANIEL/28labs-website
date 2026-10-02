@@ -1,267 +1,100 @@
-import React, { useState } from 'react';
-import { ConsultationFormData } from '../types';
-import { Send, CheckCircle2, Calendar, ShieldCheck, Mail, Building2, User, MessageSquare, Clock, ArrowRight } from 'lucide-react';
+import React from 'react';
+import { motion } from 'motion/react';
+import { ArrowRight, Mail, MessageSquare } from 'lucide-react';
 
 interface ContactSectionProps {
-  initialProjectType?: string;
-  initialMessage?: string;
+  onOpenConsultation?: () => void;
+  onNavigateToEstimator?: () => void;
 }
 
-export const ContactSection: React.FC<ContactSectionProps> = ({ initialProjectType, initialMessage }) => {
-  const [formData, setFormData] = useState<ConsultationFormData>({
-    fullName: '',
-    email: '',
-    company: '',
-    projectType: initialProjectType || 'Web App',
-    budgetRange: '$10k - $25k',
-    timeline: 'Within 4 Weeks',
-    message: initialMessage || ''
-  });
-
-  const [isSubmitted, setIsSubmitted] = useState<boolean>(false);
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
-
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSubmitted(true);
-    }, 900);
+export const ContactSection: React.FC<ContactSectionProps> = ({ 
+  onOpenConsultation,
+  onNavigateToEstimator 
+}) => {
+  const handleScrollToEstimator = () => {
+    if (onNavigateToEstimator) {
+      onNavigateToEstimator();
+    } else {
+      const el = document.getElementById('estimator');
+      if (el) el.scrollIntoView({ behavior: 'smooth' });
+    }
   };
 
   return (
-    <section id="contact" className="py-24 relative bg-grid-pattern">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-        
-        <div className="grid lg:grid-cols-12 gap-12 items-start">
-          
-          {/* Left Column: Direct Value Pitch */}
-          <div className="lg:col-span-5 space-y-8">
-            <div className="space-y-4">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-indigo-950/80 border border-indigo-500/30 text-indigo-300 text-xs font-semibold">
-                <Calendar className="w-3.5 h-3.5 text-cyan-400" />
-                <span>Start Your Project</span>
-              </div>
-              <h2 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold text-white tracking-tight">
-                Let's Build Something <br className="hidden sm:inline" />
-                <span className="text-gradient-cyan">Exceptional Together.</span>
-              </h2>
-              <p className="text-slate-300 text-base leading-relaxed">
-                Fill out the project inquiry form and a Senior Lead Architect will respond within 24 hours with a free technical architecture scope brief and sprint roadmap.
-              </p>
-            </div>
+    <section id="contact" className="py-28 sm:py-40 relative overflow-hidden">
+      {/* Subtle Background Breathing Animation */}
+      <div className="absolute inset-0 pointer-events-none flex items-center justify-center overflow-hidden">
+        <motion.div
+          animate={{
+            scale: [1, 1.15, 1],
+            opacity: [0.15, 0.25, 0.15]
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: 'easeInOut'
+          }}
+          className="w-[600px] h-[600px] rounded-full bg-gradient-to-tr from-blue-600/30 via-indigo-600/20 to-cyan-500/20 blur-[140px]"
+        />
+      </div>
 
-            {/* Direct Guarantees */}
-            <div className="space-y-4 pt-4 border-t border-slate-800">
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-indigo-950/80 border border-indigo-500/30 flex items-center justify-center shrink-0 mt-0.5">
-                  <ShieldCheck className="w-4 h-4 text-cyan-400" />
-                </div>
-                <div>
-                  <h4 className="text-sm font-bold text-white">Non-Disclosure & Privacy First</h4>
-                  <p className="text-xs text-slate-400">Mutual NDA applied automatically to all project inquiries and code ideas.</p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-lg bg-indigo-950/80 border border-indigo-500/30 flex items-center justify-center shrink-0 mt-0.5">
-                  <Clock className="w-4 h-4 text-indigo-400" />
-                </div>
-                <div>
-                  <h4 className="text-sm font-bold text-white">24-Hour Architecture Response</h4>
-                  <p className="text-xs text-slate-400">Receive a structured preliminary scope breakdown before scheduling a call.</p>
-                </div>
-              </div>
-            </div>
-
-            {/* Direct Contact info */}
-            <div className="p-5 rounded-2xl bg-slate-950 border border-slate-800 space-y-2 text-xs text-slate-400 font-mono">
-              <div className="text-indigo-400 font-bold font-sans text-sm">Direct Contact Channel</div>
-              <div>Email: <a href="mailto:hello@28labs.io" className="text-white hover:underline">hello@28labs.io</a></div>
-              <div>Location: San Francisco, CA // Global Remote Sprints</div>
-            </div>
+      <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6 }}
+          className="space-y-8"
+        >
+          {/* Eyebrow */}
+          <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-300 text-xs font-semibold tracking-widest uppercase">
+            <span>GET IN TOUCH</span>
           </div>
 
-          {/* Right Column: Sleek Form Card */}
-          <div className="lg:col-span-7">
-            <div className="glass-card rounded-2xl p-6 sm:p-10 border border-slate-800 shadow-2xl relative">
-              
-              {isSubmitted ? (
-                /* Success Feedback State */
-                <div className="text-center py-12 space-y-6 animate-in zoom-in-95 duration-300">
-                  <div className="w-16 h-16 rounded-2xl bg-emerald-950/80 border border-emerald-500/40 text-emerald-400 flex items-center justify-center mx-auto shadow-xl">
-                    <CheckCircle2 className="w-8 h-8" />
-                  </div>
+          {/* Headline */}
+          <h2 className="text-4xl sm:text-6xl md:text-7xl font-extrabold text-white tracking-tight leading-[1.08]">
+            Have an idea? <br />
+            <span className="bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-indigo-300 to-white">
+              Let's build it.
+            </span>
+          </h2>
 
-                  <div className="space-y-2">
-                    <h3 className="text-2xl font-extrabold text-white">Inquiry Received!</h3>
-                    <p className="text-slate-300 text-sm max-w-md mx-auto">
-                      Thank you, <strong className="text-white">{formData.fullName}</strong>. Our lead architect has received your inquiry for <strong className="text-cyan-400">{formData.projectType}</strong>.
-                    </p>
-                  </div>
+          {/* Supporting Text */}
+          <p className="text-lg sm:text-xl text-slate-300 leading-relaxed max-w-2xl mx-auto font-normal">
+            Tell us what you're trying to achieve. We'll help you figure out the technology.
+          </p>
 
-                  <div className="bg-slate-950 p-5 rounded-xl border border-slate-800 text-left text-xs text-slate-300 max-w-md mx-auto space-y-2 font-mono">
-                    <div className="text-indigo-400 font-bold font-sans">Summary of Submission:</div>
-                    <div>• Company: {formData.company || 'N/A'}</div>
-                    <div>• Project Type: {formData.projectType}</div>
-                    <div>• Budget Target: {formData.budgetRange}</div>
-                    <div>• Priority Timeline: {formData.timeline}</div>
-                  </div>
+          {/* Action CTAs */}
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-4">
+            <button
+              onClick={handleScrollToEstimator}
+              className="w-full sm:w-auto px-9 py-4 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-medium text-base shadow-xl shadow-blue-600/25 hover:shadow-blue-500/40 hover:-translate-y-0.5 transition-all duration-200 flex items-center justify-center gap-2.5 cursor-pointer"
+            >
+              <span>Start a Project</span>
+              <ArrowRight className="w-5 h-5" />
+            </button>
 
-                  <div className="pt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
-                    <button
-                      onClick={() => setIsSubmitted(false)}
-                      className="px-6 py-3 rounded-xl text-xs font-semibold text-slate-400 hover:text-white"
-                    >
-                      Submit Another Inquiry
-                    </button>
-
-                    <a
-                      href="#calendar-preview"
-                      onClick={(e) => {
-                        e.preventDefault();
-                        alert('Consultation calendar placeholder triggered! In production, this redirects directly to Calendly/SavvyCal.');
-                      }}
-                      className="px-6 py-3 rounded-xl text-xs font-bold text-white bg-gradient-to-r from-indigo-600 to-cyan-500 hover:from-indigo-500 hover:to-cyan-400 flex items-center gap-2 shadow-lg shadow-indigo-500/20"
-                    >
-                      <Calendar className="w-4 h-4" />
-                      <span>Optionally Pick a Calendar Slot Now</span>
-                    </a>
-                  </div>
-                </div>
-              ) : (
-                /* Contact Form */
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  
-                  <div className="border-b border-slate-800/80 pb-4">
-                    <h3 className="text-xl font-bold text-white">Project Consultation Form</h3>
-                    <p className="text-xs text-slate-400 mt-1">Provide a few details about your product vision to get started.</p>
-                  </div>
-
-                  {/* Name & Email Row */}
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div className="space-y-1.5">
-                      <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-                        <User className="w-3.5 h-3.5 text-indigo-400" /> Full Name *
-                      </label>
-                      <input
-                        type="text"
-                        required
-                        placeholder="e.g. Alex Morgan"
-                        value={formData.fullName}
-                        onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors"
-                      />
-                    </div>
-
-                    <div className="space-y-1.5">
-                      <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-                        <Mail className="w-3.5 h-3.5 text-indigo-400" /> Work Email *
-                      </label>
-                      <input
-                        type="email"
-                        required
-                        placeholder="alex@company.com"
-                        value={formData.email}
-                        onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors"
-                      />
-                    </div>
-                  </div>
-
-                  {/* Company & Project Type Row */}
-                  <div className="grid sm:grid-cols-2 gap-4">
-                    <div className="space-y-1.5">
-                      <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-                        <Building2 className="w-3.5 h-3.5 text-indigo-400" /> Company / Startup Name
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="e.g. Acme Tech Inc."
-                        value={formData.company}
-                        onChange={(e) => setFormData({ ...formData, company: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors"
-                      />
-                    </div>
-
-                    <div className="space-y-1.5">
-                      <label className="text-xs font-bold text-slate-300 flex items-center gap-1.5">
-                        <MessageSquare className="w-3.5 h-3.5 text-indigo-400" /> Primary Service Required *
-                      </label>
-                      <select
-                        value={formData.projectType}
-                        onChange={(e) => setFormData({ ...formData, projectType: e.target.value })}
-                        className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white focus:outline-none focus:border-indigo-500 transition-colors cursor-pointer"
-                      >
-                        <option value="Web App">Web Application (React / Next.js)</option>
-                        <option value="Mobile App">Mobile App (Cross-Platform / Native)</option>
-                        <option value="Custom Website">Custom High-Converting Website</option>
-                        <option value="AI Integration">AI & Custom LLM Reasoning Engine</option>
-                        <option value="Full Stack">Full Stack + AI Suite</option>
-                        <option value="Legacy Refactor">Legacy Re-architecture & Scale</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  {/* Budget Selector Buttons */}
-                  <div className="space-y-2">
-                    <label className="text-xs font-bold text-slate-300">Target Budget Range</label>
-                    <div className="grid grid-cols-2 sm:grid-cols-4 gap-2">
-                      {['<$10k', '$10k - $25k', '$25k - $50k', '$50k+'].map((budget) => (
-                        <button
-                          key={budget}
-                          type="button"
-                          onClick={() => setFormData({ ...formData, budgetRange: budget })}
-                          className={`py-2.5 px-3 rounded-xl text-xs font-semibold text-center border transition-all cursor-pointer ${
-                            formData.budgetRange === budget
-                              ? 'bg-indigo-600/30 text-white border-indigo-500 shadow-md'
-                              : 'bg-slate-950 text-slate-400 border-slate-800 hover:border-slate-700'
-                          }`}
-                        >
-                          {budget}
-                        </button>
-                      ))}
-                    </div>
-                  </div>
-
-                  {/* Message / Brief */}
-                  <div className="space-y-1.5">
-                    <label className="text-xs font-bold text-slate-300">Project Overview & Objectives</label>
-                    <textarea
-                      rows={4}
-                      placeholder="Tell us about your product goals, desired timeline, or key technical features..."
-                      value={formData.message}
-                      onChange={(e) => setFormData({ ...formData, message: e.target.value })}
-                      className="w-full px-4 py-3 rounded-xl bg-slate-950 border border-slate-800 text-xs text-white placeholder-slate-500 focus:outline-none focus:border-indigo-500 transition-colors resize-none"
-                    ></textarea>
-                  </div>
-
-                  {/* Submit Button */}
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full py-4 rounded-xl text-sm font-bold text-white bg-gradient-to-r from-indigo-600 via-indigo-500 to-cyan-500 hover:from-indigo-500 hover:to-cyan-400 transition-all duration-300 shadow-xl shadow-indigo-500/25 flex items-center justify-center gap-2 cursor-pointer group disabled:opacity-50"
-                  >
-                    {isSubmitting ? (
-                      <span>Sending Inquiry...</span>
-                    ) : (
-                      <>
-                        <Send className="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" />
-                        <span>Book Consultation & Request Proposal</span>
-                      </>
-                    )}
-                  </button>
-
-                </form>
-              )}
-
-            </div>
+            <button
+              onClick={onOpenConsultation}
+              className="w-full sm:w-auto px-9 py-4 rounded-full bg-slate-900/80 hover:bg-slate-800 text-slate-200 hover:text-white font-medium text-base border border-white/10 hover:border-white/20 transition-all duration-200 flex items-center justify-center gap-2.5 cursor-pointer"
+            >
+              <MessageSquare className="w-4 h-4 text-blue-400" />
+              <span>Talk to Us</span>
+            </button>
           </div>
 
-        </div>
+          {/* Direct Email note */}
+          <div className="pt-6">
+            <a
+              href="mailto:hello@28labs.net"
+              className="inline-flex items-center gap-2 text-sm text-slate-400 hover:text-white transition-colors"
+            >
+              <Mail className="w-4 h-4 text-blue-400" />
+              <span>hello@28labs.net</span>
+            </a>
+          </div>
 
+        </motion.div>
       </div>
     </section>
   );
