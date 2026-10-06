@@ -1,6 +1,7 @@
 import {
   ServiceItem,
   CaseStudy,
+  ProjectItem,
   ProcessStep,
   FAQItem,
   WhatWeBuildCategory,
@@ -15,74 +16,88 @@ export const HERO_DATA = {
   secondaryCta: "Explore Services"
 };
 
+export const SERVICES_SECTION_INTRO = {
+  eyebrow: "WHAT WE BUILD",
+  heading: "Technology that works for your business.",
+  supportingText: "From your first website to a complete business system, we build practical digital products around the way you work."
+};
+
 export const SERVICES_DATA: ServiceItem[] = [
   {
     id: "web-development",
+    serviceNumber: "01",
     title: "Web Development",
-    headline: "Your business deserves a great website.",
+    headline: "Your business deserves a website that works as hard as you do.",
     category: "websites",
-    shortDesc: "We design and build modern websites and web applications that help businesses attract customers, sell online and grow.",
-    fullDesc: "From custom company websites and customer portals to intuitive dashboards and SaaS platforms, we build fast, responsive, and easy-to-use web experiences tailored to your goals.",
+    shortDesc: "We build modern websites that help businesses look credible, reach customers and turn visitors into enquiries, bookings or sales.",
+    fullDesc: "We build modern websites that help businesses look credible, reach customers and turn visitors into enquiries, bookings or sales. Every site is designed around your brand and built to deliver clear results.",
+    primaryOutcome: "Get your business online.",
     iconName: "Layout",
     deliverables: [
-      "Business websites",
-      "Online stores",
-      "Web applications",
-      "Customer portals",
-      "Dashboards"
+      "Business Websites",
+      "Online Stores",
+      "Booking Systems",
+      "Customer Portals",
+      "Landing Pages"
     ],
-    ctaLabel: "Explore Web Development"
+    ctaLabel: "Start a Project"
   },
   {
     id: "mobile-development",
+    serviceNumber: "02",
     title: "Mobile App Development",
     headline: "Put your business in your customers' hands.",
     category: "web-mobile",
-    shortDesc: "We build mobile apps that make it easier for your customers to connect with your business.",
-    fullDesc: "We develop smooth, dependable mobile experiences for Android and iOS that make booking, buying, or interacting with your brand effortless.",
+    shortDesc: "We create mobile apps that make it easier for your customers to buy, book, communicate and interact with your business.",
+    fullDesc: "We create mobile apps that make it easier for your customers to buy, book, communicate and interact with your business. Built for reliability, speed, and smooth customer interaction on iOS and Android.",
+    primaryOutcome: "Create better customer experiences.",
     iconName: "Smartphone",
     deliverables: [
-      "Android apps",
-      "iOS apps",
-      "Customer apps",
-      "Booking apps",
-      "Business apps"
+      "Customer Apps",
+      "Booking Apps",
+      "Marketplace Apps",
+      "Business Apps",
+      "Mobile Services"
     ],
-    ctaLabel: "Explore Mobile Apps"
+    ctaLabel: "Start a Project"
   },
   {
     id: "ai-automation",
+    serviceNumber: "03",
     title: "AI Automation",
     headline: "Let technology handle the repetitive work.",
     category: "ai-engineering",
-    shortDesc: "We help businesses use AI to automate everyday tasks, support customers and work more efficiently.",
-    fullDesc: "From instant customer answers and automated invoice processing to smart business assistants, we help you save time without adding complexity.",
+    shortDesc: "We use AI to automate everyday business tasks so your team can spend more time on the work that actually matters.",
+    fullDesc: "We use AI to automate everyday business tasks so your team can spend more time on the work that actually matters. Automate customer support, document processing, and routine workflows effortlessly.",
+    primaryOutcome: "Automate the work that slows you down.",
     iconName: "Sparkles",
     deliverables: [
-      "Customer support",
-      "AI assistants",
-      "Document processing",
-      "Workflow automation",
-      "Business automation"
+      "Customer Support",
+      "Document Processing",
+      "Business Assistants",
+      "Workflow Automation",
+      "Reports & Summaries"
     ],
-    ctaLabel: "Explore AI Automation"
+    ctaLabel: "Start a Project"
   },
   {
     id: "custom-software",
+    serviceNumber: "04",
     title: "Custom Software",
     headline: "Software built around your business.",
     category: "rearchitecture",
-    shortDesc: "When existing tools don't fit, we build software designed around the way your business actually works.",
-    fullDesc: "Off-the-shelf software often forces you to change how you work. We build tailored systems that fit your team's exact processes, operations, and reporting needs.",
+    shortDesc: "When off-the-shelf tools don't fit the way you work, we build software around your processes, customers and goals.",
+    fullDesc: "When off-the-shelf tools don't fit the way you work, we build software around your processes, customers and goals. Unify your operations, data, and workflows into one dependable system.",
+    primaryOutcome: "Build the system your business actually needs.",
     iconName: "Layers",
     deliverables: [
-      "Business systems",
-      "Management platforms",
-      "Internal tools",
+      "Business Management Systems",
       "Dashboards",
-      "Integrations"
+      "Inventory Systems",
+      "Customer Management",
+      "Internal Tools"
     ],
-    ctaLabel: "Explore Custom Software"
+    ctaLabel: "Start a Project"
   }
 ];
 
@@ -150,86 +165,141 @@ export const HOW_IT_WORKS_STEPS: ProcessStep[] = [
   }
 ];
 
-export const SELECTED_PROJECTS: CaseStudy[] = [
+export const SELECTED_PROJECTS: ProjectItem[] = [
+  // 4 Featured Projects
   {
-    id: "project-operations-portal",
-    title: "Custom Business Management Portal",
-    clientName: "Product / R&D",
-    industry: "Custom Software",
-    category: "enterprise",
-    summary: "A unified internal management system that connects customer inquiries, operations, and reporting in one clean workspace.",
-    whoItHelps: "Growing businesses managing operations across multiple spreadsheets.",
-    problemSolved: "Replaces fragmented manual tools with one central, easy-to-use platform.",
-    challenge: "Managing sales, schedules, and customer records across disconnected software was slowing down daily operations.",
-    solution: "Built a customized web platform with real-time operational status, automated alerts, and instant team visibility.",
-    metrics: [
-      { label: "Focus", value: "Centralized", description: "One unified workspace" },
-      { label: "Experience", value: "Modern", description: "Intuitive for non-technical staff" },
-      { label: "Status", value: "Active", description: "Internal development" }
-    ],
-    techUsed: ["React", "TypeScript", "Tailwind CSS", "Node.js"],
-    featured: true,
-    imageAccent: "from-blue-600 to-indigo-600"
+    id: "serena-heights",
+    title: "Serena Heights",
+    category: "Website",
+    classification: "Website",
+    url: "https://www.serenaheights.com/",
+    summary: "Luxury residential development website showcasing 2- and 3-bedroom residences and penthouses in Kigo, Uganda.",
+    whatItIs: "A luxury residential real estate development overlooking Lake Victoria in Kigo, Uganda.",
+    whatBuilt: "Responsive property website with development overview, visual gallery, and direct inquiry channels.",
+    visualType: "serena",
+    imageSrc: "/assets/projects/serena_preview.webp",
+    tags: ["Real Estate", "Website"],
+    featured: true
   },
   {
-    id: "project-mobile-customer-app",
-    title: "Customer Booking & Account App",
-    clientName: "Internal Project",
-    industry: "Mobile App Development",
-    category: "mobile",
-    summary: "A clean mobile application that lets customers discover services, schedule appointments, and manage payments on Android and iOS.",
-    whoItHelps: "Service businesses looking to increase bookings and customer loyalty.",
-    problemSolved: "Eliminates phone tag and back-and-forth messaging with direct on-device booking.",
-    challenge: "Customers needed a faster, friction-free way to browse availability and confirm appointments on their phones.",
-    solution: "Designed and developed an intuitive mobile app featuring instant notifications, calendar sync, and saved preferences.",
-    metrics: [
-      { label: "Platforms", value: "iOS & Android", description: "Consistent mobile experience" },
-      { label: "Access", value: "Instant", description: "One-tap appointment booking" },
-      { label: "Status", value: "Preview", description: "Internal showcase" }
+    id: "estatenet",
+    title: "EstateNet",
+    category: "Mobile App",
+    classification: "Mobile App",
+    summary: "A property management app designed to simplify rent tracking and the relationship between property owners, managers and tenants.",
+    whatItIs: "A property management mobile application connecting property owners, managers and tenants.",
+    whatBuilt: "Mobile application interface for verified rent tracking, property management, and tenant communication.",
+    visualType: "estatenet",
+    imageSrc: "/assets/projects/estatenet_roles.webp",
+    screenshots: [
+      "/assets/projects/estatenet_roles.webp",
+      "/assets/projects/estatenet_properties.webp",
+      "/assets/projects/estatenet_managers.webp"
     ],
-    techUsed: ["Flutter", "REST APIs", "Cloud Infrastructure"],
-    featured: true,
-    imageAccent: "from-cyan-600 to-teal-600"
+    videoSrc: "/assets/projects/estatenet_demo.mp4",
+    tags: ["Property Management", "Mobile App"],
+    featured: true
   },
   {
-    id: "project-support-automation",
-    title: "AI Business Assistant & Support",
-    clientName: "Product / R&D",
-    industry: "AI Automation",
-    category: "ai",
-    summary: "An intelligent customer support assistant that resolves frequent inquiries around the clock and alerts human team members when needed.",
-    whoItHelps: "Customer-facing teams spending hours answering repetitive questions.",
-    problemSolved: "Delivers immediate, accurate customer responses 24/7 without extra staff overhead.",
-    challenge: "Inquiries after business hours often went unanswered until the next morning, causing lost leads.",
-    solution: "Connected an AI assistant to company information to answer questions instantly and route high-priority tickets.",
-    metrics: [
-      { label: "Availability", value: "24/7", description: "Instant automated responses" },
-      { label: "Routing", value: "Intelligent", description: "Smooth handoff to staff" },
-      { label: "Status", value: "Active", description: "R&D initiative" }
-    ],
-    techUsed: ["Python", "FastAPI", "AI APIs", "Vector Search"],
-    featured: false,
-    imageAccent: "from-purple-600 to-pink-600"
+    id: "opulent-condo-reminder",
+    title: "Opulent Condo Reminder System",
+    category: "Custom Software / Automation",
+    classification: "Custom Software",
+    summary: "A property management system for managing units, contacts, charges, payments, reminders and statements.",
+    whatItIs: "Custom property management software for condominium operations and resident communications.",
+    whatBuilt: "Operational management system for unit tracking, charges, payments, automated SMS reminders, and statements.",
+    visualType: "opulent",
+    imageSrc: "/assets/projects/opulent_dashboard.webp",
+    tags: ["Custom Software", "Automation"],
+    featured: true
   },
   {
-    id: "project-web-storefront",
-    title: "Modern E-Commerce Experience",
-    clientName: "Selected Project",
-    industry: "Web Development",
-    category: "web",
-    summary: "A fast, beautifully organized storefront designed to make browsing products enjoyable and checkout effortless on mobile.",
-    whoItHelps: "Brands seeking to build customer trust and improve online purchase rates.",
-    problemSolved: "Replaces slow, cluttered templates with a clean, branded shopping flow.",
-    challenge: "Slow mobile loading times and complicated checkouts were causing shoppers to drop off.",
-    solution: "Crafted a lightweight web storefront with fluid page transitions, search filtering, and clear checkout steps.",
-    metrics: [
-      { label: "Speed", value: "Sub-Second", description: "Fast mobile browsing" },
-      { label: "Checkout", value: "Frictionless", description: "Streamlined purchase flow" },
-      { label: "Status", value: "Showcase", description: "Selected project" }
+    id: "tempest",
+    title: "Tempest",
+    category: "Website",
+    classification: "Website",
+    summary: "A property-focused website for Tempest Gold Property.",
+    whatItIs: "Property intelligence and strategic real estate advisory web presence for Tempest Gold Property in Gaborone, Botswana.",
+    whatBuilt: "Modern web experience presenting property intelligence, advisory services, and case studies.",
+    visualType: "tempest",
+    imageSrc: "/assets/projects/tempest_preview.webp",
+    tags: ["Real Estate", "Website"],
+    featured: true
+  },
+
+  // 5 Secondary Projects
+  {
+    id: "lookiy",
+    title: "Lookiy",
+    category: "Website",
+    classification: "Website",
+    url: "https://www.lookiy.com/",
+    summary: "An online consumer marketplace and e-commerce shopping platform.",
+    whatItIs: "Consumer marketplace and digital shopping platform built around the promise to 'Shop Smart, Live Better'.",
+    whatBuilt: "Digital retail web platform for product discovery and consumer purchases.",
+    visualType: "lookiy",
+    imageSrc: "/assets/projects/lookiy_preview.webp",
+    tags: ["E-Commerce", "Website"],
+    featured: false
+  },
+  {
+    id: "lumsaway",
+    title: "LumsAway",
+    category: "Website",
+    classification: "Website",
+    url: "https://lumpsaway.ug/",
+    summary: "Healthcare foundation website supporting cancer survivorship and advocacy programs in Uganda.",
+    whatItIs: "Non-governmental organization web presence supporting cancer patients, survivorship care, and health education.",
+    whatBuilt: "Informational organization website outlining patient support programs, advocacy initiatives, and community contact resources.",
+    visualType: "lumsaway",
+    tags: ["Healthcare", "NGO", "Website"],
+    featured: false
+  },
+  {
+    id: "afres",
+    title: "African Real Estate Society (AfRES)",
+    category: "Website",
+    classification: "Website",
+    url: "https://www.afres.org/",
+    summary: "Official organizational portal for the African Real Estate Society supporting conferences and research publications.",
+    whatItIs: "Pan-African real estate association dedicated to property education, academic research, and continental networking.",
+    whatBuilt: "Organizational web portal featuring annual conference information, journal publication links, and chapter directories.",
+    visualType: "afres",
+    imageSrc: "/assets/projects/afres_preview.webp",
+    tags: ["Organization", "Website"],
+    featured: false
+  },
+  {
+    id: "hearmeout",
+    title: "HearMeOut",
+    category: "Mobile App",
+    classification: "Mobile App",
+    summary: "A mobile social discovery and marketplace application featuring community feeds, local listings, and topic exploration.",
+    whatItIs: "Mobile social discovery and marketplace application.",
+    whatBuilt: "Cross-platform mobile application interface with live activity feeds, listings, topics, and messaging.",
+    visualType: "hearmeout",
+    imageSrc: "/assets/projects/hearmeout_feed.webp",
+    screenshots: [
+      "/assets/projects/hearmeout_feed.webp",
+      "/assets/projects/hearmeout_jobs.webp",
+      "/assets/projects/hearmeout_inbox.webp"
     ],
-    techUsed: ["Next.js", "TypeScript", "Tailwind CSS"],
-    featured: false,
-    imageAccent: "from-amber-600 to-orange-600"
+    videoSrc: "/assets/projects/hearmeout_demo.mp4",
+    tags: ["Community", "Mobile App"],
+    featured: false
+  },
+  {
+    id: "axiom",
+    title: "Axiom",
+    category: "AI Project",
+    classification: "AI Project",
+    summary: "AI-powered project.",
+    whatItIs: "AI creation.",
+    whatBuilt: "AI-powered project.",
+    detailsNote: "Project details coming soon.",
+    visualType: "axiom",
+    tags: ["AI Project"],
+    featured: false
   }
 ];
 

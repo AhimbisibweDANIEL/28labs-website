@@ -7,10 +7,30 @@ export interface ServiceItem {
   fullDesc: string;
   iconName: string;
   deliverables: string[];
+  serviceNumber?: string;
+  primaryOutcome?: string;
   techStack?: string[];
   typicalTimeline?: string;
   highlights?: string[];
   ctaLabel?: string;
+}
+
+export interface ProjectItem {
+  id: string;
+  title: string;
+  category: string;
+  classification: string;
+  summary: string;
+  url?: string;
+  whatItIs?: string;
+  whatBuilt?: string;
+  detailsNote?: string;
+  visualType: 'serena' | 'lookiy' | 'estatenet' | 'hearmeout' | 'lumpsaway' | 'lumsaway' | 'afres' | 'tempest' | 'axiom' | 'opulent';
+  imageSrc?: string;
+  screenshots?: string[];
+  videoSrc?: string;
+  tags?: string[];
+  featured?: boolean;
 }
 
 export interface CaseStudy {
@@ -32,6 +52,7 @@ export interface CaseStudy {
   imageAccent: string;
   whoItHelps?: string;
   problemSolved?: string;
+  url?: string;
 }
 
 export interface ProcessStep {
@@ -73,6 +94,39 @@ export interface ProjectStarterData {
   timeline: string;
 }
 
+export type AllowedProjectType = 
+  | 'Website'
+  | 'Mobile App'
+  | 'Web Application'
+  | 'AI Automation'
+  | 'Custom Software'
+  | 'Not sure — help me figure it out';
+
+export type AllowedTimeline = 
+  | 'ASAP'
+  | 'This month'
+  | '1–3 months'
+  | 'Just exploring';
+
+export interface LeadSubmissionPayload {
+  projectType: string;
+  ideaDescription: string;
+  timeline: string;
+  fullName: string;
+  email: string;
+  company?: string;
+  phone?: string;
+  source?: 'project-starter' | 'consultation-modal';
+  honeypot?: string;
+}
+
+export interface LeadSubmissionResponse {
+  success: boolean;
+  message?: string;
+  error?: string;
+  delivered?: boolean;
+}
+
 export interface ConsultationFormData {
   fullName: string;
   email: string;
@@ -82,3 +136,4 @@ export interface ConsultationFormData {
   timeline?: string;
   message: string;
 }
+

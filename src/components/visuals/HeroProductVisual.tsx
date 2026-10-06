@@ -1,212 +1,361 @@
-import React, { useState, useEffect } from 'react';
-import { Lightbulb, Palette, Code2, Rocket, ArrowRight, CheckCircle2, Sparkles, Smartphone, Layout, Bell } from 'lucide-react';
+import React from 'react';
+import { motion, useReducedMotion } from 'motion/react';
+import { 
+  Globe, 
+  Smartphone, 
+  Sparkles, 
+  Calendar, 
+  ShoppingBag, 
+  CheckCircle2, 
+  Lock, 
+  Bot,
+  Layers,
+  ArrowUpRight
+} from 'lucide-react';
 
 export const HeroProductVisual: React.FC = () => {
-  const [activeStage, setActiveStage] = useState<number>(0);
+  const prefersReduced = useReducedMotion();
 
-  const stages = [
-    { id: 'idea', label: 'Idea', icon: Lightbulb, color: 'text-amber-400', bg: 'bg-amber-400/10', border: 'border-amber-400/30' },
-    { id: 'design', label: 'Design', icon: Palette, color: 'text-cyan-400', bg: 'bg-cyan-400/10', border: 'border-cyan-400/30' },
-    { id: 'build', label: 'Build', icon: Code2, color: 'text-indigo-400', bg: 'bg-indigo-400/10', border: 'border-indigo-400/30' },
-    { id: 'launch', label: 'Launch', icon: Rocket, color: 'text-emerald-400', bg: 'bg-emerald-400/10', border: 'border-emerald-400/30' },
-  ];
+  // Gentle, calm floating animation presets
+  const floatBrowser = prefersReduced 
+    ? {} 
+    : {
+        y: [0, -6, 0],
+        transition: {
+          duration: 7,
+          repeat: Infinity,
+          ease: 'easeInOut' as const,
+        },
+      };
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setActiveStage((prev) => (prev + 1) % stages.length);
-    }, 2800);
-    return () => clearInterval(timer);
-  }, [stages.length]);
+  const floatPhone = prefersReduced 
+    ? {} 
+    : {
+        y: [0, 7, 0],
+        transition: {
+          duration: 5.8,
+          repeat: Infinity,
+          ease: 'easeInOut' as const,
+          delay: 0.5,
+        },
+      };
+
+  const floatBadgeLeft = prefersReduced 
+    ? {} 
+    : {
+        y: [0, -6, 0],
+        x: [0, 2, 0],
+        transition: {
+          duration: 5.2,
+          repeat: Infinity,
+          ease: 'easeInOut' as const,
+          delay: 1,
+        },
+      };
+
+  const floatBadgeBottom = prefersReduced 
+    ? {} 
+    : {
+        y: [0, 5, 0],
+        x: [0, -2, 0],
+        transition: {
+          duration: 6,
+          repeat: Infinity,
+          ease: 'easeInOut' as const,
+          delay: 1.5,
+        },
+      };
+
+  const floatAiCard = prefersReduced 
+    ? {} 
+    : {
+        y: [0, -5, 0],
+        transition: {
+          duration: 4.8,
+          repeat: Infinity,
+          ease: 'easeInOut' as const,
+          delay: 0.8,
+        },
+      };
 
   return (
-    <div className="relative w-full max-w-lg mx-auto">
-      {/* Ambient background glow */}
-      <div className="absolute -inset-4 bg-gradient-to-tr from-indigo-500/20 via-cyan-500/15 to-purple-500/20 rounded-3xl blur-2xl opacity-75"></div>
+    <div className="relative w-full max-w-[550px] mx-auto select-none pt-3 pb-6 px-1 sm:px-2">
+      {/* Calm Ambient Background Glows */}
+      <motion.div 
+        className="absolute -top-10 -left-10 w-72 h-72 bg-gradient-to-tr from-blue-600/20 to-indigo-600/20 rounded-full blur-[100px] pointer-events-none"
+        animate={prefersReduced ? {} : { scale: [1, 1.1, 1], opacity: [0.3, 0.45, 0.3] }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut' }}
+      />
+      <motion.div 
+        className="absolute -bottom-10 -right-8 w-80 h-80 bg-gradient-to-br from-indigo-600/20 via-purple-600/15 to-transparent rounded-full blur-[100px] pointer-events-none"
+        animate={prefersReduced ? {} : { scale: [1.1, 1, 1.1], opacity: [0.25, 0.4, 0.25] }}
+        transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+      />
 
-      {/* Main Product Canvas */}
-      <div className="relative rounded-3xl bg-slate-900/90 border border-slate-800/80 p-6 sm:p-7 shadow-2xl backdrop-blur-xl overflow-hidden space-y-6">
+      {/* Main Composition Canvas */}
+      <div className="relative">
         
-        {/* Stage Progression Bar */}
-        <div className="grid grid-cols-4 gap-2 border-b border-slate-800/80 pb-4">
-          {stages.map((stage, idx) => {
-            const Icon = stage.icon;
-            const isActive = activeStage === idx;
-            const isCompleted = activeStage > idx;
-
-            return (
-              <button
-                key={stage.id}
-                onClick={() => setActiveStage(idx)}
-                className={`py-2 px-2.5 rounded-xl text-center transition-all cursor-pointer flex flex-col items-center gap-1.5 ${
-                  isActive
-                    ? `${stage.bg} border ${stage.border} shadow-lg shadow-indigo-500/10`
-                    : isCompleted
-                    ? 'bg-slate-950/60 border border-slate-800 text-slate-300'
-                    : 'bg-transparent text-slate-500 border border-transparent'
-                }`}
-              >
-                <div className="flex items-center justify-center">
-                  <Icon className={`w-4 h-4 ${isActive ? stage.color : isCompleted ? 'text-slate-300' : 'text-slate-500'}`} />
-                </div>
-                <span className={`text-[11px] font-semibold tracking-tight ${isActive ? 'text-white' : 'text-slate-400'}`}>
-                  {stage.label}
-                </span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Dynamic Product Visual Display */}
-        <div className="relative rounded-2xl bg-slate-950 border border-slate-800 p-5 sm:p-6 min-h-[260px] flex flex-col justify-between overflow-hidden">
-          
-          {/* Subtle decorative grid lines */}
-          <div className="absolute inset-0 bg-grid-pattern opacity-40 pointer-events-none"></div>
-
-          {activeStage === 0 && (
-            /* IDEA STAGE: Defining the product vision */
-            <div className="space-y-4 animate-in fade-in zoom-in-95 duration-500 relative z-10">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-amber-400/10 border border-amber-400/30 text-amber-300 flex items-center gap-1.5">
-                  <Lightbulb className="w-3.5 h-3.5" />
-                  <span>Stage 1: Business Vision</span>
-                </span>
-                <span className="text-[11px] text-slate-400 font-mono">Clarity First</span>
+        {/* ======================================================== */}
+        {/* 1. MAIN BROWSER MOCKUP: Websites & Business Software      */}
+        {/* ======================================================== */}
+        <motion.div
+          animate={floatBrowser}
+          className="relative rounded-2xl bg-slate-900/95 border border-slate-700/60 shadow-[0_25px_60px_-15px_rgba(0,0,0,0.8)] backdrop-blur-xl overflow-hidden mr-4 sm:mr-10"
+        >
+          {/* Top Browser Header Chrome */}
+          <div className="h-10 bg-slate-950/90 border-b border-slate-800/90 px-3 sm:px-4 flex items-center justify-between">
+            {/* Left: Window Dots & Address Bar */}
+            <div className="flex items-center gap-2.5 sm:gap-3">
+              <div className="flex items-center gap-1.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-rose-500/70 inline-block" />
+                <span className="w-2.5 h-2.5 rounded-full bg-amber-500/70 inline-block" />
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/70 inline-block" />
               </div>
 
-              <div className="space-y-2 bg-slate-900/80 p-4 rounded-xl border border-slate-800">
-                <h4 className="text-sm font-bold text-white">What problem are we solving?</h4>
-                <p className="text-xs text-slate-300 leading-relaxed">
-                  "Our business needs a seamless customer portal where clients can book, view status, and pay online."
-                </p>
-              </div>
-
-              <div className="grid grid-cols-2 gap-2 text-xs">
-                <div className="p-2.5 rounded-lg bg-slate-900/60 border border-slate-800 text-slate-300 flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                  <span>Clear goals</span>
-                </div>
-                <div className="p-2.5 rounded-lg bg-slate-900/60 border border-slate-800 text-slate-300 flex items-center gap-2">
-                  <CheckCircle2 className="w-3.5 h-3.5 text-amber-400 shrink-0" />
-                  <span>Simple scope</span>
-                </div>
+              {/* Address / URL Bar */}
+              <div className="flex items-center gap-1.5 px-2.5 py-0.5 sm:px-3 sm:py-1 rounded-full bg-slate-900 border border-slate-800 text-[10px] sm:text-[11px] text-slate-300 font-medium">
+                <Lock className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-emerald-400 shrink-0" />
+                <span className="tracking-tight">business.com/portal</span>
               </div>
             </div>
-          )}
 
-          {activeStage === 1 && (
-            /* DESIGN STAGE: Wireframing & user experience */
-            <div className="space-y-4 animate-in fade-in zoom-in-95 duration-500 relative z-10">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-cyan-400/10 border border-cyan-400/30 text-cyan-300 flex items-center gap-1.5">
-                  <Palette className="w-3.5 h-3.5" />
-                  <span>Stage 2: Interface Design</span>
-                </span>
-                <span className="text-[11px] text-slate-400 font-mono">User-Centered</span>
-              </div>
-
-              {/* Mockup Preview Card */}
-              <div className="bg-slate-900/90 rounded-xl border border-slate-800 p-3 space-y-2.5">
-                <div className="flex items-center justify-between pb-2 border-b border-slate-800 text-[11px] text-slate-400">
-                  <div className="flex items-center gap-1.5">
-                    <span className="w-2.5 h-2.5 rounded-full bg-rose-500/70 inline-block"></span>
-                    <span className="w-2.5 h-2.5 rounded-full bg-amber-500/70 inline-block"></span>
-                    <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/70 inline-block"></span>
-                  </div>
-                  <span>yourbusiness.com/preview</span>
-                </div>
-
-                <div className="space-y-2 pt-1">
-                  <div className="h-4 bg-gradient-to-r from-cyan-500/30 to-indigo-500/30 rounded-md w-3/4"></div>
-                  <div className="h-2 bg-slate-800 rounded w-full"></div>
-                  <div className="h-2 bg-slate-800 rounded w-2/3"></div>
-                </div>
-
-                <div className="pt-2 flex gap-2">
-                  <div className="px-3 py-1 rounded-md bg-cyan-500 text-slate-950 text-[10px] font-bold">Book Now</div>
-                  <div className="px-3 py-1 rounded-md bg-slate-800 text-slate-300 text-[10px]">Learn More</div>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {activeStage === 2 && (
-            /* BUILD STAGE: Functional software creation */
-            <div className="space-y-4 animate-in fade-in zoom-in-95 duration-500 relative z-10">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-indigo-400/10 border border-indigo-400/30 text-indigo-300 flex items-center gap-1.5">
-                  <Code2 className="w-3.5 h-3.5" />
-                  <span>Stage 3: Building the Product</span>
-                </span>
-                <span className="text-[11px] text-emerald-400 font-mono">In Progress</span>
-              </div>
-
-              <div className="space-y-2.5">
-                <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between text-xs">
-                  <div className="flex items-center gap-2 text-white font-medium">
-                    <Layout className="w-4 h-4 text-cyan-400" />
-                    <span>Responsive Website & Portal</span>
-                  </div>
-                  <span className="text-emerald-400 font-semibold text-[11px]">Ready</span>
-                </div>
-
-                <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between text-xs">
-                  <div className="flex items-center gap-2 text-white font-medium">
-                    <Smartphone className="w-4 h-4 text-indigo-400" />
-                    <span>Customer Mobile Experience</span>
-                  </div>
-                  <span className="text-emerald-400 font-semibold text-[11px]">Connected</span>
-                </div>
-
-                <div className="p-3 rounded-xl bg-slate-900 border border-slate-800 flex items-center justify-between text-xs">
-                  <div className="flex items-center gap-2 text-white font-medium">
-                    <Sparkles className="w-4 h-4 text-purple-400" />
-                    <span>AI Assistant Integration</span>
-                  </div>
-                  <span className="text-emerald-400 font-semibold text-[11px]">Active</span>
-                </div>
-              </div>
-            </div>
-          )}
-
-          {activeStage === 3 && (
-            /* LAUNCH STAGE: Ready for live customers */
-            <div className="space-y-4 animate-in fade-in zoom-in-95 duration-500 relative z-10">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-semibold px-2.5 py-1 rounded-full bg-emerald-400/10 border border-emerald-400/30 text-emerald-300 flex items-center gap-1.5">
-                  <Rocket className="w-3.5 h-3.5" />
-                  <span>Stage 4: Live & Growing</span>
-                </span>
-                <span className="text-[11px] text-emerald-400 font-mono font-bold">100% ONLINE</span>
-              </div>
-
-              <div className="p-4 rounded-xl bg-emerald-950/40 border border-emerald-500/30 space-y-2 text-center">
-                <div className="w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center mx-auto">
-                  <CheckCircle2 className="w-6 h-6" />
-                </div>
-                <h4 className="text-sm font-bold text-white">Your product is live.</h4>
-                <p className="text-xs text-slate-300">
-                  Ready to welcome customers, process orders, and support your business every single day.
-                </p>
-              </div>
-
-              <div className="p-2.5 rounded-lg bg-slate-900/60 border border-slate-800 text-[11px] text-slate-400 flex items-center justify-between">
-                <span>Ongoing support & upgrades</span>
-                <span className="text-cyan-400 font-medium">Always with you</span>
-              </div>
-            </div>
-          )}
-
-          {/* Micro Footer Indicator */}
-          <div className="pt-3 border-t border-slate-800/80 flex items-center justify-between text-[11px] text-slate-400">
-            <span>Customer-focused delivery</span>
-            <div className="flex items-center gap-1 text-slate-300">
-              <span>{stages[activeStage].label}</span>
-              <ArrowRight className="w-3 h-3 text-cyan-400" />
+            {/* Subtle Right Indicator */}
+            <div className="w-6 flex justify-end">
+              <span className="w-1.5 h-1.5 rounded-full bg-slate-600" />
             </div>
           </div>
 
-        </div>
+          {/* Browser Workspace Content */}
+          <div className="p-3.5 sm:p-5 space-y-3.5 sm:space-y-4 bg-gradient-to-b from-slate-900 to-slate-950/90 min-h-[300px] sm:min-h-[330px]">
+            {/* Inner Top Nav */}
+            <div className="flex items-center justify-between pb-3 border-b border-slate-800/80">
+              <div className="flex items-center gap-2">
+                <div className="w-6 h-6 rounded-lg bg-gradient-to-tr from-blue-500 to-indigo-600 flex items-center justify-center text-white shadow-sm">
+                  <Layers className="w-3.5 h-3.5" />
+                </div>
+                <span className="text-xs font-semibold text-white tracking-tight">Studio Portal</span>
+              </div>
+              <div className="hidden sm:flex items-center gap-3 text-[11px] text-slate-400">
+                <span className="text-white font-medium">Overview</span>
+                <span>Bookings</span>
+                <span>Orders</span>
+              </div>
+              <div className="px-2.5 py-1 rounded-md bg-blue-600/90 text-white text-[10px] sm:text-[11px] font-medium flex items-center gap-1 shadow-sm">
+                <span>Book Online</span>
+              </div>
+            </div>
 
+            {/* Headline Inside Portal */}
+            <div className="space-y-1 pr-6 sm:pr-0">
+              <h4 className="text-xs sm:text-base font-bold text-white tracking-tight">
+                Business Operations &amp; Customer Portal
+              </h4>
+              <p className="text-[11px] sm:text-xs text-slate-400">
+                Bookings, customer orders and client services — all in one place.
+              </p>
+            </div>
+
+            {/* Business Outcome Feature Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
+              {/* Outcome Card 1: Online Booking System */}
+              <div className="p-2.5 sm:p-3 rounded-xl bg-slate-900/90 border border-slate-800/90 space-y-1.5 sm:space-y-2 max-w-[210px] sm:max-w-none">
+                <div className="flex items-center justify-between">
+                  <div className="w-6 h-6 sm:w-7 sm:h-7 rounded-lg bg-emerald-500/10 border border-emerald-500/20 flex items-center justify-center text-emerald-400">
+                    <Calendar className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                  </div>
+                  <span className="text-[9px] sm:text-[10px] font-semibold text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full">
+                    Confirmed
+                  </span>
+                </div>
+                <div>
+                  <div className="text-[11px] sm:text-xs font-semibold text-white">Online Bookings</div>
+                  <div className="text-[10px] sm:text-[11px] text-slate-400">Customer scheduled appointment</div>
+                </div>
+              </div>
+
+              {/* Outcome Card 2: Customer Orders (Visible on sm & up) */}
+              <div className="hidden sm:block p-3 rounded-xl bg-slate-900/90 border border-slate-800/90 space-y-2">
+                <div className="flex items-center justify-between">
+                  <div className="w-7 h-7 rounded-lg bg-blue-500/10 border border-blue-500/20 flex items-center justify-center text-blue-400">
+                    <ShoppingBag className="w-4 h-4" />
+                  </div>
+                  <span className="text-[10px] font-semibold text-blue-400 bg-blue-500/10 px-2 py-0.5 rounded-full">
+                    Dispatched
+                  </span>
+                </div>
+                <div>
+                  <div className="text-xs font-semibold text-white">Customer Orders</div>
+                  <div className="text-[11px] text-slate-400">Seamless checkout &amp; status</div>
+                </div>
+              </div>
+            </div>
+
+            {/* Client Activity Preview Strip */}
+            <div className="p-2.5 sm:p-3 rounded-xl bg-slate-950/80 border border-slate-800/70 space-y-1.5 sm:space-y-2 pr-28 sm:pr-3">
+              <div className="flex items-center justify-between text-[10px] sm:text-[11px]">
+                <span className="text-slate-400 font-medium">Recent Customer Activity</span>
+                <span className="text-blue-400 flex items-center gap-0.5 hover:underline cursor-pointer">
+                  <span>View All</span>
+                  <ArrowUpRight className="w-3 h-3" />
+                </span>
+              </div>
+              <div className="space-y-1.5 text-xs">
+                <div className="flex items-center justify-between text-slate-300">
+                  <div className="flex items-center gap-1.5 sm:gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0" />
+                    <span className="text-[10px] sm:text-[11px] truncate">Client consultation confirmed</span>
+                  </div>
+                  <span className="text-[9px] sm:text-[10px] text-slate-500 shrink-0 ml-1">Just now</span>
+                </div>
+                <div className="flex items-center justify-between text-slate-300">
+                  <div className="flex items-center gap-1.5 sm:gap-2">
+                    <div className="w-1.5 h-1.5 rounded-full bg-blue-400 shrink-0" />
+                    <span className="text-[10px] sm:text-[11px] truncate">Order fulfillment notified</span>
+                  </div>
+                  <span className="text-[9px] sm:text-[10px] text-slate-500 shrink-0 ml-1">5m ago</span>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </motion.div>
+
+        {/* ======================================================== */}
+        {/* 2. SMARTPHONE MOCKUP: Mobile Apps (Overlapping)          */}
+        {/* ======================================================== */}
+        <motion.div
+          animate={floatPhone}
+          className="absolute -bottom-5 right-0 sm:right-2 w-[140px] sm:w-[195px] rounded-[24px] sm:rounded-[30px] bg-slate-950 border-[3px] border-slate-700/80 shadow-[0_25px_60px_rgba(0,0,0,0.85)] p-2 sm:p-2.5 z-20"
+        >
+          {/* Phone Top Speaker Notch */}
+          <div className="w-12 sm:w-16 h-2.5 sm:h-3 bg-slate-900 rounded-full mx-auto mb-1.5 sm:mb-2 flex items-center justify-center">
+            <span className="w-1.5 h-1.5 rounded-full bg-slate-800" />
+          </div>
+
+          {/* Phone Screen Content */}
+          <div className="space-y-1.5 sm:space-y-2 bg-slate-900/90 rounded-[18px] sm:rounded-[22px] p-2 sm:p-2.5 border border-slate-800">
+            {/* Mobile App Header */}
+            <div className="flex items-center justify-between">
+              <span className="text-[9px] sm:text-[10px] font-bold text-white flex items-center gap-1">
+                <Smartphone className="w-3 h-3 text-indigo-400" />
+                <span>Mobile App</span>
+              </span>
+              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400" />
+            </div>
+
+            {/* Mobile Booking Widget */}
+            <div className="p-1.5 sm:p-2 rounded-xl bg-slate-950/90 border border-slate-800/80 space-y-1 sm:space-y-1.5">
+              <div className="text-[8px] sm:text-[10px] text-slate-400">Next Booking</div>
+              <div className="text-[9px] sm:text-[11px] font-semibold text-white leading-tight">Tomorrow • 10:00 AM</div>
+              <div className="w-full py-1 rounded-md bg-blue-600 text-white text-[8px] sm:text-[9px] font-medium text-center">
+                Confirm Service
+              </div>
+            </div>
+
+            {/* Mobile Order Widget */}
+            <div className="p-1.5 sm:p-2 rounded-xl bg-slate-950/90 border border-slate-800/80 flex items-center justify-between">
+              <div>
+                <div className="text-[8px] sm:text-[9px] text-slate-400">Order #382</div>
+                <div className="text-[9px] sm:text-[10px] font-semibold text-white">Ready for pickup</div>
+              </div>
+              <CheckCircle2 className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-emerald-400 shrink-0" />
+            </div>
+
+            {/* Mobile Tab Bar Mini */}
+            <div className="pt-1 flex items-center justify-around border-t border-slate-800/80 text-[10px] text-slate-400">
+              <span className="w-1.5 h-1.5 rounded-full bg-blue-400" />
+              <span className="w-1.5 h-1.5 rounded-full bg-slate-600" />
+              <span className="w-1.5 h-1.5 rounded-full bg-slate-600" />
+            </div>
+          </div>
+        </motion.div>
+
+        {/* ======================================================== */}
+        {/* 3. FLOATING AI ASSISTANT / MESSAGE CARD                  */}
+        {/* ======================================================== */}
+        <motion.div
+          animate={floatAiCard}
+          className="absolute -top-4 right-1 sm:right-6 max-w-[170px] sm:max-w-[220px] rounded-xl bg-slate-900/95 border border-indigo-500/40 p-2 sm:p-2.5 shadow-xl backdrop-blur-md z-30"
+        >
+          <div className="flex items-center justify-between pb-1.5 border-b border-slate-800">
+            <div className="flex items-center gap-1 sm:gap-1.5">
+              <div className="w-4 h-4 sm:w-5 sm:h-5 rounded-md bg-indigo-500/20 text-indigo-400 flex items-center justify-center">
+                <Bot className="w-2.5 h-2.5 sm:w-3 sm:h-3" />
+              </div>
+              <span className="text-[10px] sm:text-[11px] font-semibold text-white">AI Assistant</span>
+            </div>
+            {/* Subtle Pulsing Live Indicator */}
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500" />
+            </span>
+          </div>
+
+          <div className="space-y-1 sm:space-y-1.5 pt-1.5 text-[9px] sm:text-[10px]">
+            <div className="p-1 sm:p-1.5 rounded-lg bg-slate-800/80 text-slate-300">
+              "Can I book a consultation?"
+            </div>
+            <div className="p-1 sm:p-1.5 rounded-lg bg-indigo-950/60 border border-indigo-500/30 text-indigo-200 flex items-center gap-1 font-medium">
+              <Sparkles className="w-2.5 h-2.5 sm:w-3 sm:h-3 text-indigo-400 shrink-0" />
+              <span>Booked for Friday at 2:00 PM!</span>
+            </div>
+          </div>
+        </motion.div>
+
+        {/* ======================================================== */}
+        {/* 4. FLOATING BUSINESS OUTCOME BADGE (Left Top)            */}
+        {/* ======================================================== */}
+        <motion.div
+          animate={floatBadgeLeft}
+          className="hidden sm:flex absolute top-12 -left-4 items-center gap-2 px-3 py-2 rounded-xl bg-slate-900/95 border border-emerald-500/30 shadow-lg backdrop-blur-md z-20"
+        >
+          <div className="w-7 h-7 rounded-lg bg-emerald-500/15 flex items-center justify-center text-emerald-400">
+            <CheckCircle2 className="w-4 h-4" />
+          </div>
+          <div>
+            <div className="text-[11px] font-bold text-white leading-tight">Online Bookings</div>
+            <div className="text-[9px] text-emerald-400 font-medium">Automated scheduling</div>
+          </div>
+        </motion.div>
+
+        {/* ======================================================== */}
+        {/* 5. FLOATING BUSINESS OUTCOME BADGE (Left Bottom)         */}
+        {/* ======================================================== */}
+        <motion.div
+          animate={floatBadgeBottom}
+          className="hidden sm:flex absolute -bottom-2 -left-3 items-center gap-2 px-3 py-2 rounded-xl bg-slate-900/95 border border-blue-500/30 shadow-lg backdrop-blur-md z-20"
+        >
+          <div className="w-7 h-7 rounded-lg bg-blue-500/15 flex items-center justify-center text-blue-400">
+            <ShoppingBag className="w-4 h-4" />
+          </div>
+          <div>
+            <div className="text-[11px] font-bold text-white leading-tight">Customer Orders</div>
+            <div className="text-[9px] text-blue-300 font-medium">Seamless checkout</div>
+          </div>
+        </motion.div>
+
+      </div>
+
+      {/* ======================================================== */}
+      {/* 6. INSTANT 2-SECOND DELIVERABLE PILLS                   */}
+      {/* ======================================================== */}
+      <div className="mt-7 pt-4 border-t border-slate-800/80 flex flex-wrap items-center justify-center gap-2 sm:gap-4 text-[11px] text-slate-400">
+        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-800 text-slate-300">
+          <Globe className="w-3.5 h-3.5 text-blue-400" />
+          <span>Websites</span>
+        </div>
+        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-800 text-slate-300">
+          <Smartphone className="w-3.5 h-3.5 text-indigo-400" />
+          <span>Mobile Apps</span>
+        </div>
+        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-800 text-slate-300">
+          <Layers className="w-3.5 h-3.5 text-cyan-400" />
+          <span>Business Software</span>
+        </div>
+        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-slate-900/80 border border-slate-800 text-slate-300">
+          <Sparkles className="w-3.5 h-3.5 text-purple-400" />
+          <span>AI Experiences</span>
+        </div>
       </div>
     </div>
   );

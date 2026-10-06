@@ -63,7 +63,10 @@ export default function App() {
         />
 
         {/* 5. Services Section (4 Large Visual Showcases) */}
-        <Services onOpenConsultation={handleOpenConsultation} />
+        <Services 
+          onOpenConsultation={handleOpenConsultation}
+          onNavigateToEstimator={handleNavigateToEstimator}
+        />
 
         {/* 6. What We Build Section (For Businesses, For Startups, With AI) */}
         <WhatWeBuild onOpenConsultation={handleOpenConsultation} />
