@@ -44,31 +44,28 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenConsultation, onNavigateTo
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
         isScrolled
-          ? 'bg-slate-950/85 backdrop-blur-xl border-b border-white/10 py-3.5 shadow-2xl'
+          ? 'bg-white/80 backdrop-blur-xl border-b border-[#eaeaea] py-3'
           : 'bg-transparent py-5'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between">
-          
+
           {/* Logo */}
           <a href="#" className="flex items-center gap-2.5 group cursor-pointer">
-            <div className="w-8 h-8 rounded-xl bg-gradient-to-tr from-blue-600 to-indigo-500 flex items-center justify-center shadow-md shadow-blue-500/20 group-hover:scale-105 transition-transform duration-200">
-              <span className="text-white font-black text-sm tracking-tighter">28</span>
+            <div className="w-8 h-8 rounded-lg bg-black flex items-center justify-center group-hover:bg-neutral-800 transition-colors duration-200">
+              <span className="text-white font-bold text-sm tracking-tighter">28</span>
             </div>
-            <div className="flex items-center">
-              <span className="text-xl font-bold tracking-tight text-white">28 Labs</span>
-              <span className="w-1.5 h-1.5 rounded-full bg-blue-400 ml-1"></span>
-            </div>
+            <span className="text-[17px] font-semibold tracking-tight text-black">28 Labs</span>
           </a>
 
           {/* Desktop Navigation Links */}
-          <nav className="hidden md:flex items-center gap-8">
+          <nav className="hidden md:flex items-center gap-7">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
-                className="text-sm font-medium text-slate-300 hover:text-white transition-colors duration-200"
+                className="text-sm text-[#666666] hover:text-black transition-colors duration-200"
               >
                 {link.name}
               </a>
@@ -76,12 +73,18 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenConsultation, onNavigateTo
           </nav>
 
           {/* Desktop Primary CTA */}
-          <div className="hidden md:flex items-center">
+          <div className="hidden md:flex items-center gap-3">
+            <a
+              href="#contact"
+              className="text-sm text-[#666666] hover:text-black transition-colors duration-200"
+            >
+              Contact
+            </a>
             <button
               onClick={handleStartProject}
-              className="px-5 py-2.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-medium text-sm transition-all duration-200 shadow-md shadow-blue-600/20 hover:shadow-blue-500/30 flex items-center gap-2 cursor-pointer hover:-translate-y-0.5"
+              className="px-4 py-2 rounded-full bg-black hover:bg-neutral-700 text-white font-medium text-sm transition-colors duration-200 flex items-center gap-2 cursor-pointer"
             >
-              <span>Start a Project</span>
+              <span>Start a project</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </button>
           </div>
@@ -90,7 +93,7 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenConsultation, onNavigateTo
           <div className="md:hidden flex items-center">
             <button
               onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-              className="p-2 rounded-xl bg-slate-900 border border-white/10 text-slate-300 hover:text-white"
+              className="p-2 rounded-lg border border-[#eaeaea] text-black"
               aria-label="Toggle navigation menu"
             >
               {mobileMenuOpen ? <X className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
@@ -102,26 +105,26 @@ export const Navbar: React.FC<NavbarProps> = ({ onOpenConsultation, onNavigateTo
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
-        <div className="md:hidden bg-slate-950/95 backdrop-blur-2xl border-b border-white/10 px-4 pt-4 pb-6 space-y-4 animate-fade-in">
-          <nav className="flex flex-col space-y-3">
+        <div className="md:hidden bg-white border-b border-[#eaeaea] px-4 pt-4 pb-6 space-y-4">
+          <nav className="flex flex-col space-y-1">
             {navLinks.map((link) => (
               <a
                 key={link.name}
                 href={link.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="text-base font-medium text-slate-200 hover:text-white px-3 py-2 rounded-lg hover:bg-slate-900 transition-colors"
+                className="text-base font-medium text-black px-3 py-2.5 rounded-lg hover:bg-neutral-50 transition-colors"
               >
                 {link.name}
               </a>
             ))}
           </nav>
 
-          <div className="pt-2">
+          <div className="pt-2 px-1">
             <button
               onClick={handleStartProject}
-              className="w-full py-3 px-4 rounded-full bg-blue-600 text-white font-medium text-sm flex items-center justify-center gap-2"
+              className="w-full py-3 px-4 rounded-full bg-black text-white font-medium text-sm flex items-center justify-center gap-2"
             >
-              <span>Start a Project</span>
+              <span>Start a project</span>
               <ArrowRight className="w-4 h-4" />
             </button>
           </div>

@@ -47,7 +47,7 @@ export default function App() {
   };
 
   return (
-    <div className="min-h-screen bg-[#07090E] text-slate-100 font-sans selection:bg-blue-600 selection:text-white relative">
+    <div className="min-h-screen bg-white text-[#171717] font-sans selection:bg-[#0070f3]/10 selection:text-[#171717] relative">
       {/* 14. Navigation */}
       <Navbar
         onOpenConsultation={() => handleOpenConsultation()}

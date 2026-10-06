@@ -10,16 +10,16 @@ import {
 
 export const HERO_DATA = {
   eyebrow: "28 LABS",
-  headline: "We build digital products for ambitious businesses.",
-  supportingText: "Websites, mobile apps, custom software and AI automation — built around what your business needs.",
-  primaryCta: "Start a Project",
-  secondaryCta: "Explore Services"
+  headline: "Software, apps, and AI for ambitious businesses.",
+  supportingText: "We design and ship the digital products your business runs on — websites, mobile apps, custom software, and AI automation.",
+  primaryCta: "Start a project",
+  secondaryCta: "Explore services"
 };
 
 export const SERVICES_SECTION_INTRO = {
   eyebrow: "WHAT WE BUILD",
   heading: "Technology that works for your business.",
-  supportingText: "From your first website to a complete business system, we build practical digital products around the way you work."
+  supportingText: "From a first website to a complete operating system, we build practical products around the way you work."
 };
 
 export const SERVICES_DATA: ServiceItem[] = [
@@ -27,10 +27,10 @@ export const SERVICES_DATA: ServiceItem[] = [
     id: "web-development",
     serviceNumber: "01",
     title: "Web Development",
-    headline: "Your business deserves a website that works as hard as you do.",
+    headline: "A website that turns visitors into customers.",
     category: "websites",
-    shortDesc: "We build modern websites that help businesses look credible, reach customers and turn visitors into enquiries, bookings or sales.",
-    fullDesc: "We build modern websites that help businesses look credible, reach customers and turn visitors into enquiries, bookings or sales. Every site is designed around your brand and built to deliver clear results.",
+    shortDesc: "Modern, fast websites that build credibility and convert traffic into enquiries, bookings, and sales.",
+    fullDesc: "We build modern, fast websites that build credibility and convert traffic into enquiries, bookings, and sales. Every site is designed around your brand and built to deliver clear results.",
     primaryOutcome: "Get your business online.",
     iconName: "Layout",
     deliverables: [
@@ -48,8 +48,8 @@ export const SERVICES_DATA: ServiceItem[] = [
     title: "Mobile App Development",
     headline: "Put your business in your customers' hands.",
     category: "web-mobile",
-    shortDesc: "We create mobile apps that make it easier for your customers to buy, book, communicate and interact with your business.",
-    fullDesc: "We create mobile apps that make it easier for your customers to buy, book, communicate and interact with your business. Built for reliability, speed, and smooth customer interaction on iOS and Android.",
+    shortDesc: "Mobile apps that make it easy for customers to buy, book, and interact with your business on iOS and Android.",
+    fullDesc: "We create mobile apps that make it easier for your customers to buy, book, communicate and interact with your business. Built for reliability, speed, and smooth interaction on iOS and Android.",
     primaryOutcome: "Create better customer experiences.",
     iconName: "Smartphone",
     deliverables: [
@@ -65,9 +65,9 @@ export const SERVICES_DATA: ServiceItem[] = [
     id: "ai-automation",
     serviceNumber: "03",
     title: "AI Automation",
-    headline: "Let technology handle the repetitive work.",
+    headline: "Let AI handle the repetitive work.",
     category: "ai-engineering",
-    shortDesc: "We use AI to automate everyday business tasks so your team can spend more time on the work that actually matters.",
+    shortDesc: "Automate customer support, document processing, and routine workflows so your team can focus on what matters.",
     fullDesc: "We use AI to automate everyday business tasks so your team can spend more time on the work that actually matters. Automate customer support, document processing, and routine workflows effortlessly.",
     primaryOutcome: "Automate the work that slows you down.",
     iconName: "Sparkles",
@@ -86,7 +86,7 @@ export const SERVICES_DATA: ServiceItem[] = [
     title: "Custom Software",
     headline: "Software built around your business.",
     category: "rearchitecture",
-    shortDesc: "When off-the-shelf tools don't fit the way you work, we build software around your processes, customers and goals.",
+    shortDesc: "When off-the-shelf tools don't fit, we build software around your processes, customers, and goals.",
     fullDesc: "When off-the-shelf tools don't fit the way you work, we build software around your processes, customers and goals. Unify your operations, data, and workflows into one dependable system.",
     primaryOutcome: "Build the system your business actually needs.",
     iconName: "Layers",

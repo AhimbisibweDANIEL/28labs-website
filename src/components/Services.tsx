@@ -6,7 +6,7 @@ import { WebDevelopmentVisual } from './visuals/WebDevelopmentVisual';
 import { MobileAppVisual } from './visuals/MobileAppVisual';
 import { AIWorkflowVisual } from './visuals/AIWorkflowVisual';
 import { CustomSoftwareVisual } from './visuals/CustomSoftwareVisual';
-import { ArrowRight, CheckCircle2, X, Sparkles, Compass } from 'lucide-react';
+import { ArrowRight, CheckCircle2, X, Sparkles } from 'lucide-react';
 
 interface ServicesProps {
   onOpenConsultation: (serviceTitle?: string) => void;
@@ -28,13 +28,11 @@ export const Services: React.FC<ServicesProps> = ({ onOpenConsultation, onNaviga
   }, []);
 
   const handleStartProject = (service: ServiceItem) => {
-    // Map service to Project Starter allowed type
     let targetType = 'Website';
     if (service.id === 'mobile-development') targetType = 'Mobile App';
     else if (service.id === 'ai-automation') targetType = 'AI Automation';
     else if (service.id === 'custom-software') targetType = 'Custom Software';
 
-    // Dispatch custom event so Project Starter selects this project type
     window.dispatchEvent(new CustomEvent('select-project-type', { detail: targetType }));
 
     if (onNavigateToEstimator) {
@@ -69,10 +67,7 @@ export const Services: React.FC<ServicesProps> = ({ onOpenConsultation, onNaviga
   };
 
   return (
-    <section id="services" className="py-24 sm:py-36 relative scroll-mt-10 overflow-hidden">
-      {/* Background Glow */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[700px] h-[400px] bg-gradient-to-tr from-blue-600/10 via-indigo-600/10 to-transparent rounded-full blur-[140px] pointer-events-none" />
-
+    <section id="services" className="py-24 sm:py-32 relative scroll-mt-10 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
         {/* Section Header */}
@@ -83,20 +78,20 @@ export const Services: React.FC<ServicesProps> = ({ onOpenConsultation, onNaviga
             viewport={{ once: true }}
             transition={{ duration: 0.5 }}
           >
-            <p className="text-xs sm:text-sm font-semibold tracking-widest uppercase text-blue-400 mb-3">
+            <p className="text-sm font-medium tracking-widest uppercase text-[#888888] mb-3">
               {SERVICES_SECTION_INTRO.eyebrow}
             </p>
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight mb-4">
+            <h2 className="text-3xl sm:text-4xl md:text-5xl font-bold text-black tracking-tight mb-4">
               {SERVICES_SECTION_INTRO.heading}
             </h2>
-            <p className="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl mx-auto">
+            <p className="text-base sm:text-lg text-[#666666] leading-relaxed max-w-2xl mx-auto">
               {SERVICES_SECTION_INTRO.supportingText}
             </p>
           </motion.div>
         </div>
 
-        {/* 4 Premium Service Showcase Blocks */}
-        <div className="space-y-20 sm:space-y-32">
+        {/* 4 Service Showcase Blocks */}
+        <div className="space-y-16 sm:space-y-24">
           {SERVICES_DATA.map((service, index) => {
             const isReversed = index % 2 !== 0;
 
@@ -107,9 +102,7 @@ export const Services: React.FC<ServicesProps> = ({ onOpenConsultation, onNaviga
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, margin: '-60px' }}
                 transition={{ duration: 0.55 }}
-                className={`grid lg:grid-cols-12 gap-10 lg:gap-14 items-center ${
-                  isReversed ? 'lg:flex-row-reverse' : ''
-                }`}
+                className="grid lg:grid-cols-12 gap-10 lg:gap-14 items-center"
               >
                 {/* Content Side */}
                 <div
@@ -119,45 +112,45 @@ export const Services: React.FC<ServicesProps> = ({ onOpenConsultation, onNaviga
                 >
                   {/* Service Number & Category Header */}
                   <div className="flex items-center gap-2.5">
-                    <span className="w-8 h-8 rounded-xl bg-blue-600/20 border border-blue-500/30 text-blue-400 font-mono text-xs font-bold flex items-center justify-center">
+                    <span className="text-[13px] font-mono font-medium text-[#888888]">
                       {service.serviceNumber || `0${index + 1}`}
                     </span>
-                    <span className="text-xs font-semibold uppercase tracking-wider text-blue-400">
+                    <span className="w-8 h-px bg-[#d4d4d4]" />
+                    <span className="text-[13px] font-medium uppercase tracking-wider text-[#666666]">
                       {service.title}
                     </span>
                   </div>
 
-                  {/* Outcome-focused Headline */}
-                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-white tracking-tight leading-tight">
+                  {/* Headline */}
+                  <h3 className="text-2xl sm:text-3xl md:text-4xl font-bold text-black tracking-tight leading-tight">
                     {service.headline}
                   </h3>
 
-                  {/* Clear Description */}
-                  <p className="text-base sm:text-lg text-slate-300 leading-relaxed font-normal">
+                  {/* Description */}
+                  <p className="text-base sm:text-lg text-[#666666] leading-relaxed">
                     {service.shortDesc}
                   </p>
 
-                  {/* Primary Outcome Badge */}
+                  {/* Primary Outcome */}
                   {service.primaryOutcome && (
-                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-slate-900 border border-blue-500/30 text-xs font-medium text-slate-200">
-                      <Sparkles className="w-3.5 h-3.5 text-blue-400" />
-                      <span className="text-slate-400">Outcome:</span>
-                      <span className="text-white font-semibold">{service.primaryOutcome}</span>
+                    <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-[#eaeaea] bg-[#fafafa] text-sm text-[#171717]">
+                      <Sparkles className="w-3.5 h-3.5 text-[#0070f3]" />
+                      <span>{service.primaryOutcome}</span>
                     </div>
                   )}
 
                   {/* Deliverables / Examples */}
                   <div className="pt-1">
-                    <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-3">
-                      What we can build:
+                    <p className="text-xs font-medium text-[#888888] uppercase tracking-wider mb-3">
+                      What we build
                     </p>
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
                       {service.deliverables.map((item, idx) => (
                         <div
                           key={idx}
-                          className="flex items-center gap-2.5 text-sm text-slate-200 bg-slate-900/70 border border-white/5 rounded-xl px-3.5 py-2.5 hover:border-blue-500/30 transition-colors"
+                          className="flex items-center gap-2.5 text-sm text-[#171717] border border-[#eaeaea] rounded-xl px-3.5 py-2.5"
                         >
-                          <CheckCircle2 className="w-4 h-4 text-blue-400 shrink-0" />
+                          <CheckCircle2 className="w-4 h-4 text-[#0070f3] shrink-0" />
                           <span>{item}</span>
                         </div>
                       ))}
@@ -168,17 +161,17 @@ export const Services: React.FC<ServicesProps> = ({ onOpenConsultation, onNaviga
                   <div className="flex flex-wrap items-center gap-3 pt-2">
                     <button
                       onClick={() => handleStartProject(service)}
-                      className="px-6 py-3.5 rounded-full bg-blue-600 hover:bg-blue-500 text-white font-semibold text-sm transition-all duration-200 shadow-md shadow-blue-600/20 hover:shadow-blue-500/30 flex items-center gap-2 cursor-pointer hover:-translate-y-0.5"
+                      className="px-6 py-3 rounded-full bg-black hover:bg-neutral-700 text-white font-medium text-sm transition-colors duration-200 flex items-center gap-2 cursor-pointer"
                     >
-                      <span>Start a Project</span>
+                      <span>Start a project</span>
                       <ArrowRight className="w-4 h-4" />
                     </button>
 
                     <button
                       onClick={() => setSelectedService(service)}
-                      className="px-5 py-3.5 rounded-full bg-slate-900/90 hover:bg-slate-800 text-slate-300 hover:text-white font-medium text-sm border border-white/10 hover:border-white/20 transition-all duration-200 cursor-pointer"
+                      className="px-5 py-3 rounded-full bg-white hover:bg-neutral-50 text-black font-medium text-sm border border-[#d4d4d4] transition-colors duration-200 cursor-pointer"
                     >
-                      Details
+                      Learn more
                     </button>
                   </div>
                 </div>
@@ -200,94 +193,94 @@ export const Services: React.FC<ServicesProps> = ({ onOpenConsultation, onNaviga
 
       </div>
 
-      {/* Clean Service Details Modal */}
+      {/* Service Details Modal */}
       <AnimatePresence>
         {selectedService && (
           <div 
             role="dialog"
             aria-modal="true"
             aria-labelledby="service-modal-title"
-            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-md overflow-y-auto animate-in fade-in duration-200"
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/40 backdrop-blur-sm overflow-y-auto"
             onClick={() => setSelectedService(null)}
           >
             <div 
-              className="relative w-full max-w-xl bg-slate-900 border border-slate-800 rounded-3xl p-6 sm:p-8 shadow-2xl space-y-6 my-8"
+              className="relative w-full max-w-xl bg-white border border-[#eaeaea] rounded-2xl p-6 sm:p-8 space-y-6 my-8 shadow-2xl"
               onClick={(e) => e.stopPropagation()}
             >
-              {/* Modal Close Button */}
+              {/* Close */}
               <button
                 onClick={() => setSelectedService(null)}
                 aria-label="Close service details"
-                className="absolute top-5 right-5 p-2 rounded-xl bg-slate-800/80 text-slate-400 hover:text-white transition-colors cursor-pointer"
+                className="absolute top-5 right-5 p-2 rounded-lg text-[#888888] hover:text-black hover:bg-neutral-50 transition-colors cursor-pointer"
               >
                 <X className="w-5 h-5" />
               </button>
 
-              {/* Modal Header */}
+              {/* Header */}
               <div className="space-y-2 pr-10">
-                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-500/30 text-blue-300 text-xs font-semibold">
+                <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full border border-[#eaeaea] text-[#666666] text-xs font-medium">
                   <span>Service {selectedService.serviceNumber || '01'}</span>
                 </div>
-                <h3 id="service-modal-title" className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+                <h3 id="service-modal-title" className="text-2xl sm:text-3xl font-bold text-black tracking-tight">
                   {selectedService.title}
                 </h3>
-                <p className="text-sm font-medium text-blue-300">
+                <p className="text-sm font-medium text-[#0070f3]">
                   {selectedService.headline}
                 </p>
               </div>
 
               {/* Description */}
-              <div className="p-4 rounded-2xl bg-slate-950/70 border border-slate-800/80 space-y-1 text-sm">
-                <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
+              <div className="p-4 rounded-xl bg-[#fafafa] border border-[#eaeaea] space-y-1 text-sm">
+                <div className="text-xs font-medium text-[#888888] uppercase tracking-wider">
                   How this helps your business
                 </div>
-                <p className="text-slate-200 leading-relaxed font-normal pt-1">
+                <p className="text-[#333333] leading-relaxed pt-1">
                   {selectedService.fullDesc || selectedService.shortDesc}
                 </p>
               </div>
 
-              {/* Deliverables List */}
+              {/* Deliverables */}
               <div className="space-y-2.5">
-                <div className="text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                  Example Deliverables
+                <div className="text-xs font-medium text-[#888888] uppercase tracking-wider">
+                  Example deliverables
                 </div>
                 <div className="grid sm:grid-cols-2 gap-2">
                   {selectedService.deliverables.map((d, i) => (
                     <div
                       key={i}
-                      className="flex items-center gap-2 p-2.5 rounded-xl bg-slate-800/60 border border-white/5 text-xs text-slate-200"
+                      className="flex items-center gap-2 p-2.5 rounded-xl border border-[#eaeaea] text-sm text-[#171717]"
                     >
-                      <CheckCircle2 className="w-3.5 h-3.5 text-blue-400 shrink-0" />
+                      <CheckCircle2 className="w-3.5 h-3.5 text-[#0070f3] shrink-0" />
                       <span>{d}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Primary Outcome */}
+              {/* Outcome */}
               {selectedService.primaryOutcome && (
-                <div className="p-3 rounded-xl bg-blue-950/30 border border-blue-500/20 text-xs text-blue-200 flex items-center gap-2">
-                  <Sparkles className="w-4 h-4 text-blue-400 shrink-0" />
-                  <span><strong>Target Outcome:</strong> {selectedService.primaryOutcome}</span>
+                <div className="p-3 rounded-xl bg-[#0070f3]/5 border border-[#0070f3]/20 text-sm text-[#171717] flex items-center gap-2">
+                  <Sparkles className="w-4 h-4 text-[#0070f3] shrink-0" />
+                  <span><strong>Target outcome:</strong> {selectedService.primaryOutcome}</span>
                 </div>
               )}
 
-              {/* Modal Actions */}
-              <div className="pt-3 border-t border-slate-800/80 flex flex-col sm:flex-row items-center gap-3">
+              {/* Actions */}
+              <div className="pt-3 border-t border-[#eaeaea] flex flex-col sm:flex-row items-center gap-3">
                 <button
                   onClick={() => {
                     const s = selectedService;
                     setSelectedService(null);
                     handleStartProject(s);
                   }}
-                  className="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2 py-3 px-5 rounded-full text-xs font-semibold bg-blue-600 hover:bg-blue-500 text-white transition-colors shadow-lg shadow-blue-600/20 cursor-pointer"
+                  className="w-full sm:w-auto flex-1 inline-flex items-center justify-center gap-2 py-3 px-5 rounded-full text-sm font-medium bg-black hover:bg-neutral-700 text-white transition-colors cursor-pointer"
                 >
-                  <span>Start a {selectedService.title} Project</span>
+                  <span>Start a {selectedService.title} project</span>
                   <ArrowRight className="w-3.5 h-3.5" />
                 </button>
                 <button
                   onClick={() => setSelectedService(null)}
-                  className="w-full sm:w-auto py-3 px-5 rounded-full text-xs font-medium bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-white transition-colors cursor-pointer"
+                  className="w-full sm:w-auto py-3 px-5 rounded-full text-sm font-medium border border-[#d4d4d4] text-black hover:bg-neutral-50 transition-colors cursor-pointer"
                 >
                   Close
                 </button>
